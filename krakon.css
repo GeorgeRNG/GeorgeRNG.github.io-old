@@ -1,0 +1,6 @@
+body {font-family: Arial, Helvetica, sans-serif;}
+#input-error {color: red; background-color: brown; padding: 10px; width: max-content;}
+#code-upload-input {display: grid;}
+#raw-code-area {width: 80%;}
+#code-area {height: 0em;}
+#raw-code-edit {width: 80%;}
