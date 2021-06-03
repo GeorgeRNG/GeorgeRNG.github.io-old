@@ -15,6 +15,7 @@ function httpGet(theUrl, data=null)
 {
     var xmlHttp = new XMLHttpRequest();
     xmlHttp.open( "GET", theUrl, false ); // false for synchronous request
+    xmlHttp.setRequestHeader("Access-Control-Allow-Origin", "*")
     xmlHttp.send(data);
     return xmlHttp.responseText;
 }
