@@ -1,15 +1,22 @@
 <!DOCTYPE html>
 <html>
-  <title>Krakon Code Editor</title>
-<body>
-
-<h1>Krakon Code Editor</h1>
-
-<div id="code-upload-input">
-  <input id="raw-code-area" type="text">
-  <button id="raw-code-upload">Upload</button>
-  <button id="raw-code-upload">Export</button>
-</div>
-
-</body>
+   <head>
+      <script src="krakon.js"></script> 
+      <title>Krakon Code Editor</title>
+      <link rel="stylesheet" href="krakon.css">
+   </head>
+   <body onload="init();">
+      <h1>Krakon Code Editor.</h1>
+      <div id="code-upload-input">
+         <h2>Upload and export.</h2>
+         <input id="raw-code-area" type="text">
+         <div id="raw-code-buttons">
+            <button id="raw-code-upload" onclick="importcode()">Upload</button>
+            <button id="raw-code-export" onclick="exportcode()">Export</button>
+         </div>
+         <p id="input-error" onclick="document.getElementById('input-error').style.display='none'">Error:</p>
+      </div>
+      <h2>Raw code area</h2>
+      <div id="code-area"><textarea id="raw-code-edit">a</textarea></div>
+   </body>
 </html>
