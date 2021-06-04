@@ -4,6 +4,9 @@ function exportcode() {
     inputerror = document.getElementById("input-error");
     inputerror.style.display = "initial";
     inputerror.innerHTML = "Error: Export is disabled.";
+    /*data = compress(document.getElementById("raw-code-edit").innerHTML);
+    console.log(data)
+    alert(data);*/
 }
 
 function importcode(){
@@ -35,3 +38,25 @@ var strData     = String.fromCharCode.apply(null, new Uint16Array(data));
 // Output to console
 return(strData);
 }
+
+function compress(b64Data){
+    // Get some base64 encoded binary data from the server. Imagine we got this:
+    //var b64Data     = 'H4sIAAAAAAAAAwXB2w0AEBAEwFbWl2Y0IW4jQmziPNo3k6TuGK0Tj/ESVRs6yzkuHRnGIqPB92qzhg8yp62UMAAAAA==';
+    // Decode base64 (convert ascii to binary)
+    var strData     = btoa(b64Data);
+    // Convert binary string to character-number array
+    var charData    = strData.split('').map(function(x){return x.charCodeAt(0);});
+    // Turn number array into byte-array
+    var binData     = new Uint8Array(charData);
+    var enc = new TextEncoder(); // always utf-8
+    binData = enc.encode(b64Data);
+
+    // Pako magic
+    var data        = pako.deflate(binData);
+    // Convert gunzipped byteArray back to ascii string:
+    var strData     = String.fromCharCode.apply(null, new Uint16Array(data));
+    // Output to console
+    var string = new TextDecoder().decode(data);
+    if (strData == string){console.log("gsdfhjmsglhdjfrg");}
+    return(string);
+    }
