@@ -15,10 +15,13 @@
          <div id="raw-code-buttons">
             <button id="raw-code-upload" onclick="importcode()">Import</button>
             <button id="raw-code-export" onclick="exportcode()">Export</button>
+            <button id="raw-code-pretty" onclick="prettycode()">Pretty Print</button>
          </div>
          <p id="input-error" onclick="document.getElementById('input-error').style.display='none'">Error: Awaiting innit, if you see this javascript may not be working.</p>
       </div>
       <h2>Raw code area</h2>
-      <div id="code-area"><textarea id="raw-code-edit"></textarea></div>
+      <div id="code-area">
+         <textarea id="raw-code-edit">a</textarea>
+      </div>
    </body>
 </html>
