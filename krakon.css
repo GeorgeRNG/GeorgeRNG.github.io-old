@@ -4,3 +4,4 @@ body {font-family: Arial, Helvetica, sans-serif;}
 #raw-code-area {width: 80%;}
 #code-area {height: 0em;}
 #raw-code-edit {width: 80%}
+#raw-click-code {height: 100px; background-color:cadetblue; width: 90%;}
