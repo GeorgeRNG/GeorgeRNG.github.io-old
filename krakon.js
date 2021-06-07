@@ -4,14 +4,23 @@ function exportcode() {
     /*inputerror = document.getElementById("input-error");
     inputerror.style.display = "initial";
     inputerror.innerHTML = "Error: Export is disabled.";*/
-    data = compress(document.getElementById("raw-code-edit").innerHTML);
+    data = compress(currentcode);
+    //document.getElementById("raw-code-area").value = data
+    //false changes don't go brrr..
     alert(data);
+}
+var currentcode = ""
+
+function savecode(x){
+    //Cookies.set("code", x.value)
+    //later doesn't work atm
 }
 
 function importcode(){
     try{
         data = decompress(document.getElementById("raw-code-area").value);
-        document.getElementById("raw-code-edit").innerHTML = data;
+        document.getElementById("raw-code-edit").value = data;
+        currentcode = data
     }
     catch(err){
         inputerror = document.getElementById("input-error");
@@ -39,9 +48,10 @@ function compress(codedata){
 }
 
 function prettycode(){
-    textbox = document.getElementById("raw-code-edit").innerHTML;
+    textbox = document.getElementById("raw-code-edit").value;
     textbox = JSON.stringify(JSON.parse(textbox),null,'\t');
-    document.getElementById("raw-code-edit").innerHTML = textbox
+    document.getElementById("raw-code-edit").value = textbox
+    currentcode = textbox
 }
 
 

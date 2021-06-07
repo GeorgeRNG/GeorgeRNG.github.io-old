@@ -3,6 +3,7 @@
    <head>
       <meta charset="utf-8"/>
       <script src="pako.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
       <script src="krakon.js"></script> 
       <title>Krakon Code Editor</title>
       <link rel="stylesheet" href="krakon.css"/>
@@ -11,7 +12,7 @@
       <h1>Krakon Code Editor</h1>
       <div id="code-upload-input">
          <h2>Upload and export</h2>
-         <input id="raw-code-area" type="text">
+         <input id="raw-code-area" type="text" onchange="savecode(this);">
          <div id="raw-code-buttons">
             <button id="raw-code-upload" onclick="importcode()">Import</button>
             <button id="raw-code-export" onclick="exportcode()">Export</button>
@@ -21,8 +22,12 @@
       </div>
       <h2>Raw code area</h2>
       <div id="code-area">
-         <textarea id="raw-code-edit">No code rn!</textarea>
-         <div id="raw-click-code"></div>
+         <textarea id="raw-code-edit" onchange="currentcode = this.value;">No code rn!</textarea>
+         <div id="raw-click-code">
+            <div>
+               <img class="code-icon" src="images/newblock.png" alt="New code block" title="Click to make a new codeblock."/>
+            </div>
+         </div>
       </div>
    </body>
 </html>
