@@ -23,9 +23,47 @@
       <h2>Raw code area</h2>
       <div id="code-area">
          <textarea id="raw-code-edit" onchange="currentcode = this.value;">No code rn!</textarea>
-         <div id="raw-click-code">
-            <div>
-               <img class="code-icon" src="images/newblock.png" alt="New code block" title="Click to make a new codeblock."/>
+         <div id="code-panel">
+            <div id="code-list">
+               <!--<img class="code-icon" src="images/newblock.png" alt="New code block" title="Click to make a new codeblock."/>-->
+            </div>
+            <div id="code-edit">
+               <div id="new-block">
+                  <button>New Block</button>
+                  <select id="block-type">
+                     <optgroup label="PLAYER">
+                        <option value="event">PLAYER EVENT</option>
+                        <option value="player_action">PLAYER ACTION</option>
+                        <option value="if_player">IF PLAYER</option>
+                     </optgroup>
+                     <optgroup label="ENTITY">
+                        <option value="entity_event">ENTITY EVENT</option>
+                        <option value="entity_action">ENTITY ACTION</option>
+                        <option value="if_entity">IF ENTITY</option>
+                     </optgroup>
+                     <optgroup label="GAME">
+                        <option value="game_action">GAME ACTION</option>
+                        <option value="if_game">IF GAME</option>
+                        <option value="control">CONTROL</option>
+                     </optgroup>
+                     <optgroup label="VARIBLE">
+                        <option value="set_var">SET VARIBLE</option>
+                        <option value="if_var">IF VARIBLE</option>
+                        <option value="else">ELSE</option>
+                     </optgroup>
+                     <optgroup label="CALLABLE">
+                        <option value="func">FUNCTION</option>
+                        <option value="call_func">CALL FUNCTION</option>
+                        <option value="process">PROCESS</option>
+                        <option value="start_process">START PROCESS</option>
+                     </optgroup>
+                     <optgroup label="MISCELLANEOUS">
+                        <option value="repeat">REPEAT</option>
+                        <option value="select_obj">SELECT OBJECT</option>
+                     </optgroup>
+                     <!--{"PLAYER ACTION": 'player_action', "PLAYER EVENT":'event', "IF PLAYER": "if_player", "ENITY EVENT": "entity_event", "SET VARIBLE": "set_var", "IF ENTITY": "if_entity", "ENTITY ACTION": "entity_action", "IF VARIBLE": "if_var", "SELECT OBJECT": "select_obj", "GAME ACTION": "game_action", "CONTROL": "control", "REPEAT": "repeat", "IF GAME": "if_game"}-->
+                  </select>
+               </div>
             </div>
          </div>
       </div>
