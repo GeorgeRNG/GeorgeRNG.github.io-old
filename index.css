@@ -1,1 +1,7 @@
+body {font-family: sans-serif;}
 header {padding: 10px; background-color:aliceblue; border: solid; border-color: antiquewhite;}
+#projects-list {padding: 10px;}
+.app {background-color:rgb(200, 200, 200); width: max-content; padding: 5px; height: 300px;}
+.app:hover {box-shadow: 1px 1px;}
+.icon {width: 200px; height: auto;}
+.desc {width: 190px; text-align: center; padding-top: 5%;}
