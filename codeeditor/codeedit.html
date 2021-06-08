@@ -23,13 +23,13 @@
       <h2>Raw code area</h2>
       <div id="code-area">
          <textarea id="raw-code-edit" onchange="currentcode = this.value;">No code rn!</textarea>
-         <div id="code-panel">
-            <div id="code-list">
+         <div id="code-panel" class="boxed">
+            <div id="code-list" class="boxed">
                <!--<img class="code-icon" src="images/newblock.png" alt="New code block" title="Click to make a new codeblock."/>-->
             </div>
-            <div id="code-edit">
+            <div id="code-edit" class="boxed">
                <div id="new-block">
-                  <button>New Block</button>
+                  <button onclick="newblock();">New Block</button>
                   <select id="block-type">
                      <optgroup label="PLAYER">
                         <option value="event">PLAYER EVENT</option>
@@ -60,6 +60,7 @@
                      <optgroup label="MISCELLANEOUS">
                         <option value="repeat">REPEAT</option>
                         <option value="select_obj">SELECT OBJECT</option>
+                        <option value="control">CONTROL</option>
                      </optgroup>
                      <!--{"PLAYER ACTION": 'player_action', "PLAYER EVENT":'event', "IF PLAYER": "if_player", "ENITY EVENT": "entity_event", "SET VARIBLE": "set_var", "IF ENTITY": "if_entity", "ENTITY ACTION": "entity_action", "IF VARIBLE": "if_var", "SELECT OBJECT": "select_obj", "GAME ACTION": "game_action", "CONTROL": "control", "REPEAT": "repeat", "IF GAME": "if_game"}-->
                   </select>

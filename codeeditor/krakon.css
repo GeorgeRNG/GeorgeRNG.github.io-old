@@ -4,5 +4,6 @@ body {font-family: Arial, Helvetica, sans-serif;}
 #raw-code-area {width: 80%;}
 #code-area {height: 0em;}
 #raw-code-edit {width: 80%}
-#code-panel {height: fit-content; background-color:cadetblue; width: 90%; border: 6px; border-style: solid;}
+.boxed {background-color:cadetblue; border: 6px; border-style: solid; padding: 5px;}
 .code-icon {padding: 10px;}
+#code-list {width: 95%; height: 120px;}

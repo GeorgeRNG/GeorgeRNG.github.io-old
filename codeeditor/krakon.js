@@ -54,6 +54,10 @@ function prettycode(){
     currentcode = textbox
 }
 
+function newblock(){
+    x = document.getElementById("block-type").value
+    console.log(x)
+}
 
 /*
 ██╗░░░██╗░██╗░░░░░░░██╗██╗░░░██╗  ░█████╗░░██╗░░░░░░░██╗░█████╗░  ███╗░░██╗██╗░░░██╗░█████╗░
