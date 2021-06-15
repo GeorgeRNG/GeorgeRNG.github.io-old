@@ -9,7 +9,9 @@ function exportcode() {
     //false changes don't go brrr..
     alert(data);
 }
-var currentcode = ""
+
+var data = ""
+
 
 function savecode(x){
     //Cookies.set("code", x.value)
@@ -21,14 +23,18 @@ function importcode(){
         data = decompress(document.getElementById("raw-code-area").value);
         document.getElementById("raw-code-edit").value = data;
         currentcode = data
+        rendblocks();
     }
     catch(err){
-        inputerror = document.getElementById("input-error");
-        inputerror.style.display = "initial";
-        inputerror.innerHTML = "Error: Import failed.";
+        errorbox("Import failed. Error Code: " + String(err))
     }
 }
 
+function errorbox(text){
+    inputerror = document.getElementById("input-error");
+    inputerror.style.display = "initial";
+    inputerror.innerHTML = ("Error: " + text + "<br/>Click this message to remove it.");
+}
 
 function decompress(b64Data){
     var strData = atob(b64Data);
@@ -59,17 +65,23 @@ function newblock(){
     console.log(x)
 }
 
-/*
-██╗░░░██╗░██╗░░░░░░░██╗██╗░░░██╗  ░█████╗░░██╗░░░░░░░██╗░█████╗░  ███╗░░██╗██╗░░░██╗░█████╗░
-██║░░░██║░██║░░██╗░░██║██║░░░██║  ██╔══██╗░██║░░██╗░░██║██╔══██╗  ████╗░██║╚██╗░██╔╝██╔══██╗
-██║░░░██║░╚██╗████╗██╔╝██║░░░██║  ██║░░██║░╚██╗████╗██╔╝██║░░██║  ██╔██╗██║░╚████╔╝░███████║
-██║░░░██║░░████╔═████║░██║░░░██║  ██║░░██║░░████╔═████║░██║░░██║  ██║╚████║░░╚██╔╝░░██╔══██║
-╚██████╔╝░░╚██╔╝░╚██╔╝░╚██████╔╝  ╚█████╔╝░░╚██╔╝░╚██╔╝░╚█████╔╝  ██║░╚███║░░░██║░░░██║░░██║
-░╚═════╝░░░░╚═╝░░░╚═╝░░░╚═════╝░  ░╚════╝░░░░╚═╝░░░╚═╝░░░╚════╝░  ╚═╝░░╚══╝░░░╚═╝░░░╚═╝░░╚═╝
+function rendblocks(){
+    const nochest = ["event"];
+    JSON.parse(data)["blocks"].forEach((block, index) => {
+        if(block["id"] == "block"){
+            element = document.createElement("div");
+            element.id = "block-" + String(index);
+            element.classList.add("block")
+            element.onclick = function(index){selectblock(index)};
+            img = document.createElement("img")
+            img.scr = ("/images/blocks/" + block["block"] + ".png");
+            element.appendChild(img)
+            console.log(element)
+            document.getElementById("code-list").appendChild(element);
+        }
+    });
+}
 
-
-Yeah I'm litteraly this bored.
-God help me, as source also says.
-fine. I'll do it, */ console.log("██╗░░░██╗░██╗░░░░░░░██╗██╗░░░██╗  ░█████╗░░██╗░░░░░░░██╗░█████╗░  ███╗░░██╗██╗░░░██╗░█████╗░\n██║░░░██║░██║░░██╗░░██║██║░░░██║  ██╔══██╗░██║░░██╗░░██║██╔══██╗  ████╗░██║╚██╗░██╔╝██╔══██╗\n██║░░░██║░╚██╗████╗██╔╝██║░░░██║  ██║░░██║░╚██╗████╗██╔╝██║░░██║  ██╔██╗██║░╚████╔╝░███████║\n██║░░░██║░░████╔═████║░██║░░░██║  ██║░░██║░░████╔═████║░██║░░██║  ██║╚████║░░╚██╔╝░░██╔══██║\n╚██████╔╝░░╚██╔╝░╚██╔╝░╚██████╔╝  ╚█████╔╝░░╚██╔╝░╚██╔╝░╚█████╔╝  ██║░╚███║░░░██║░░░██║░░██║\n░╚═════╝░░░░╚═╝░░░╚═╝░░░╚═════╝░  ░╚════╝░░░░╚═╝░░░╚═╝░░░╚════╝░  ╚═╝░░╚══╝░░░╚═╝░░░╚═╝░░╚═╝"); /*
-There you go it's now in log
-*/
+function selectblock(index){
+    console.log(index)
+}
