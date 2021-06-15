@@ -1,6 +1,6 @@
 body {font-family: sans-serif;}
 header {padding: 10px; background-color:aliceblue; border: solid; border-color: antiquewhite;}
-#projects-list {padding: 10px;}
+#projects-list {padding: 10px; display: grid;}
 .app {background-color:rgb(200, 200, 200); width: max-content; padding: 5px; height: 300px;}
 .app:hover {box-shadow: 1px 1px;}
 .icon {width: 200px; height: auto;}
