@@ -85,3 +85,10 @@ function rendblocks(){
 function selectblock(index){
     console.log(index)
 }
+
+function imgelement(link, classes = []){
+    img = document.createElement("img");
+    img.src = link
+    img.classList = classes
+    return img
+}
