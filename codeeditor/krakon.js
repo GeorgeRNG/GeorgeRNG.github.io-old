@@ -73,9 +73,7 @@ function rendblocks(){
             element.id = "block-" + String(index);
             element.classList.add("block")
             element.onclick = function(index){selectblock(index)};
-            img = document.createElement("img")
-            img.scr = ("/images/blocks/" + block["block"] + ".png");
-            element.appendChild(img)
+            element.appendChild(imgelement("images/blocks/" + block["block"] + ".png", ["block"]));
             console.log(element)
             document.getElementById("code-list").appendChild(element);
         }

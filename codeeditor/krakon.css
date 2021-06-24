@@ -7,4 +7,13 @@ body {font-family: Arial, Helvetica, sans-serif;}
 .boxed {background-color:cadetblue; border: 6px; border-style: solid; padding: 5px;}
 .code-icon {padding: 10px;}
 #code-list {width: 95%; height: 120px;}
-.block {height: 100%; width: fit-content;}
+.block {height: 100%; width: fit-content; float: left;}
+img { 
+    image-rendering: optimizeSpeed;             /*                     */
+    image-rendering: -moz-crisp-edges;          /* Firefox             */
+    image-rendering: -o-crisp-edges;            /* Opera               */
+    image-rendering: -webkit-optimize-contrast; /* Chrome (and Safari) */
+    image-rendering: pixelated;                 /* Chrome as of 2019   */
+    image-rendering: optimize-contrast;         /* CSS3 Proposed       */
+    -ms-interpolation-mode: nearest-neighbor;   /* IE8+                */
+    }
