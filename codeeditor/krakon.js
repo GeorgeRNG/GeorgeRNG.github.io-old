@@ -11,7 +11,7 @@ function exportcode() {
 }
 
 var data = ""
-
+var selectedblock = 0
 
 function savecode(x){
     //Cookies.set("code", x.value)
@@ -67,21 +67,36 @@ function newblock(){
 
 function rendblocks(){
     const nochest = ["event"];
+    document.getElementById("code-list").innerHTML = ""
     JSON.parse(data)["blocks"].forEach((block, index) => {
         if(block["id"] == "block"){
-            element = document.createElement("div");
-            element.id = "block-" + String(index);
-            element.classList.add("block")
-            element.onclick = function(index){selectblock(index)};
-            element.appendChild(imgelement("images/blocks/" + block["block"] + ".png", ["block"]));
-            console.log(element)
-            document.getElementById("code-list").appendChild(element);
+            img = (imgelement("images/blocks/" + block["block"] + ".png", ["block"]));
+            img.onclick = function(index){selectblock(index)};
+            img.classList.add("block")
+            img.id = "block-" + String(index);
+            document.getElementById("code-list").appendChild(img);
         }
     });
 }
 
 function selectblock(index){
-    console.log(index)
+    var isat = Number(index.target.id.replace("block-",""))
+    selectedblock = isat
+    obj = JSON.parse(currentcode)["blocks"][isat]
+    contents = document.createElement("div")
+    x = document.createElement("p")
+    x.innerHTML = "Block " + String(isat + 1) + ": " + obj["block"] + "\n"
+    contents.appendChild(x)
+    x = document.createElement("span")
+    x.innerHTML = "Action: "
+    contents.appendChild(x)
+    x = document.createElement("input")
+    x.type = "text"
+    x.value = obj["action"]
+    x.onchange = () => {console.log("bob")}
+    contents.appendChild(x)
+    document.getElementById("blockselect").innerHTML = ""
+    document.getElementById("blockselect").appendChild(contents)
 }
 
 function imgelement(link, classes = []){
