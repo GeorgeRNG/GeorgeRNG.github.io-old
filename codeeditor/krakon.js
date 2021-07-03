@@ -50,7 +50,9 @@ function compress(codedata){
     data = pako.gzip(codedata);
     data = String.fromCharCode.apply(null, new Uint16Array(data));
     compressData = btoa(data);
+    document.getElementById("code-list").innerHTML = compressData
     return compressData;
+
 }
 
 function prettycode(){
