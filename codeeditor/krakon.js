@@ -58,6 +58,7 @@ function prettycode(){
     textbox = JSON.stringify(JSON.parse(textbox),null,'\t');
     document.getElementById("raw-code-edit").value = textbox
     currentcode = textbox
+    document.getElementById("code-list").innerHTML = currentcode
 }
 
 function newblock(){
