@@ -1,0 +1,18 @@
+body {font-family: Arial, Helvetica, sans-serif;}
+#errorbox {background-color: red; display: none;}
+footer {
+    position: absolute;
+    bottom: 10px;
+    width: max-content;
+  }
+#import-and-exportcode {padding: 5px;}
+#encodedinput {width: 100%;}
+#rawdecoded {width: 90%;}
+.unselectable {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}

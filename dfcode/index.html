@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <script src="pako.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
+        <script src="code.js"></script> 
+        <link rel="stylesheet" href="style.css"/>
+        <title>
+            RNG Indurstries Code Editor
+        </title>
+    </head>
+    <body>
+        <div id="import-and-exportcode">
+            <input type="text" id="encodedinput"/>
+            <div>
+                <button id="raw-code-upload" onclick="importcode()">Import</button>
+                <button id="raw-code-export" onclick="exportcode()">Export</button>
+                <button id="raw-code-pretty" onclick="prettycode()">Pretty Print</button>
+            </div>
+            <br/>
+            <span>Exported Code: </span><span id="encodedoutput">Export some code.</span>
+        </div>
+        <textarea id="rawdecoded">Import some code.</textarea>
+        <footer>
+            <div class="unselectable" id="errorbox" onclick="this.style.display = 'none'">
+                <span id="errortype">Error:</span>
+                <span id="error"></span>
+                <span><br/>Click to hide.</span>
+            </div>
+        </footer>
+    </body>
+</html>
