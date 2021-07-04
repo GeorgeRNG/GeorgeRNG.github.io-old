@@ -9,10 +9,9 @@
       <link rel="stylesheet" href="krakon.css"/>
    </head>
    <body onload="init();">
-      <h1>Krakon Code Editor</h1>
       <div id="code-upload-input">
-         <h2>Upload and export</h2>
-         <input id="raw-code-area" type="text" onchange="savecode(this);">
+         <h2>Import and Export</h2>
+         <input id="raw-code-area" type="text">
          <div id="raw-code-buttons">
             <button id="raw-code-upload" onclick="importcode()">Import</button>
             <button id="raw-code-export" onclick="exportcode()">Export</button>
@@ -20,15 +19,12 @@
          </div>
          <p id="input-error" onclick="document.getElementById('input-error').style.display='none'">Error: Awaiting innit, if you see this javascript may not be working.</p>
       </div>
-      <h2>Raw code area</h2>
       <div id="code-area">
          <textarea id="raw-code-edit" onchange="currentcode = this.value;">No code rn!</textarea>
-         <div id="code-panel" class="boxed">
-            <div id="code-list" class="boxed">
-               <!--<img class="code-icon" src="images/newblock.png" alt="New code block" title="Click to make a new codeblock."/>-->
-            </div>
-            <div id="code-edit" class="boxed">
-               <div id="new-block" class="boxed">
+         <div id="code-panel">
+            <div id="code-mod-panel">
+               <div id="blockselect"><p>Please select a block</p></div>
+               <div id="new-block">
                   <button onclick="newblock();">New Block</button>
                   <select id="block-type">
                      <optgroup label="PLAYER">
@@ -65,8 +61,8 @@
                      <!--{"PLAYER ACTION": 'player_action', "PLAYER EVENT":'event', "IF PLAYER": "if_player", "ENITY EVENT": "entity_event", "SET VARIBLE": "set_var", "IF ENTITY": "if_entity", "ENTITY ACTION": "entity_action", "IF VARIBLE": "if_var", "SELECT OBJECT": "select_obj", "GAME ACTION": "game_action", "CONTROL": "control", "REPEAT": "repeat", "IF GAME": "if_game"}-->
                   </select>
                </div>
-               <div id="blockselect" class="boxed"><p>Please select a block</p></div>
             </div>
+            <div id="code-list"></div>
          </div>
       </div>
    </body>

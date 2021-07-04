@@ -1,13 +1,8 @@
 function init(){
 document.getElementById("input-error").style.display = "none";}
 function exportcode() {
-    /*inputerror = document.getElementById("input-error");
-    inputerror.style.display = "initial";
-    inputerror.innerHTML = "Error: Export is disabled.";*/
     data = compress(currentcode);
-    //document.getElementById("raw-code-area").value = data
-    //false changes don't go brrr..
-    alert(data);
+    document.getElementById("code-list").innerHTML = data
 }
 
 var data = ""
@@ -50,7 +45,6 @@ function compress(codedata){
     data = pako.gzip(codedata);
     data = String.fromCharCode.apply(null, new Uint16Array(data));
     compressData = btoa(data);
-    document.getElementById("code-list").innerHTML = compressData
     return compressData;
 
 }
