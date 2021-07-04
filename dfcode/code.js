@@ -36,3 +36,24 @@ function prettycode(){
 function rendblocks(){
     document.getElementById("rawdecoded").innerHTML = code
 }
+
+function imgelement(link, classes = []){
+    img = document.createElement("img");
+    img.src = link
+    img.classList = classes
+    return img
+}
+
+function rendblocks(){
+    document.getElementById("rawdecoded").value = code
+    document.getElementById("code-list").innerHTML = ""
+    JSON.parse(code)["blocks"].forEach((block, index) => {
+        if(block["id"] == "block"){
+            img = (imgelement("images/blocks/" + block["block"] + ".png", ["block"]));
+            img.onclick = function(index){selectblock(index)};
+            img.classList.add("block")
+            img.id = "block-" + String(index);
+            document.getElementById("code-list").appendChild(img);
+        }
+    });
+}

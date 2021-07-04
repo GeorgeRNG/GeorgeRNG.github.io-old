@@ -63,7 +63,6 @@ function newblock(){
 }
 
 function rendblocks(){
-    const nochest = ["event"];
     document.getElementById("code-list").innerHTML = ""
     JSON.parse(data)["blocks"].forEach((block, index) => {
         if(block["id"] == "block"){
