@@ -17,15 +17,53 @@
                 <button id="raw-code-upload" onclick="importcode()">Import</button>
                 <button id="raw-code-export" onclick="exportcode()">Export</button>
                 <button id="raw-code-pretty" onclick="prettycode()">Pretty Print</button>
+                <button id="raw-code-copy" onclick="copy()">Quick Copy Exported Text</button>
             </div>
             <br/>
-            <span>Exported Code: </span><span id="encodedoutput">Export some code.</span>
+            <span>Exported Code: </span><input id="encodedoutput" value="Export some code"/ disabled="disabled">
         </div>
-        <textarea id="rawdecoded">Import some code.</textarea>
+        <textarea id="rawdecoded" onchange="code = this.value; rendblocks()">Import some code.</textarea>
         <div id="code-list"></div>
         <div id="codepanel">
             <div id="blockinfo">
                 <span>You need to select a block.</span>
+                <!--<div id="new-block">
+                    <<button onclick="newblock();">New Block</button>
+                    <select id="block-type">
+                       <optgroup label="PLAYER">
+                          <option value="event">PLAYER EVENT</option>
+                          <option value="player_action">PLAYER ACTION</option>
+                          <option value="if_player">IF PLAYER</option>
+                       </optgroup>
+                       <optgroup label="ENTITY">
+                          <option value="entity_event">ENTITY EVENT</option>
+                          <option value="entity_action">ENTITY ACTION</option>
+                          <option value="if_entity">IF ENTITY</option>
+                       </optgroup>
+                       <optgroup label="GAME">
+                          <option value="game_action">GAME ACTION</option>
+                          <option value="if_game">IF GAME</option>
+                          <option value="control">CONTROL</option>
+                       </optgroup>
+                       <optgroup label="VARIBLE">
+                          <option value="set_var">SET VARIBLE</option>
+                          <option value="if_var">IF VARIBLE</option>
+                          <option value="else">ELSE</option>
+                       </optgroup>
+                       <optgroup label="CALLABLE">
+                          <option value="func">FUNCTION</option>
+                          <option value="call_func">CALL FUNCTION</option>
+                          <option value="process">PROCESS</option>
+                          <option value="start_process">START PROCESS</option>
+                       </optgroup>
+                       <optgroup label="MISCELLANEOUS">
+                          <option value="repeat">REPEAT</option>
+                          <option value="select_obj">SELECT OBJECT</option>
+                          <option value="control">CONTROL</option>
+                       </optgroup>
+                       {"PLAYER ACTION": 'player_action', "PLAYER EVENT":'event', "IF PLAYER": "if_player", "ENITY EVENT": "entity_event", "SET VARIBLE": "set_var", "IF ENTITY": "if_entity", "ENTITY ACTION": "entity_action", "IF VARIBLE": "if_var", "SELECT OBJECT": "select_obj", "GAME ACTION": "game_action", "CONTROL": "control", "REPEAT": "repeat", "IF GAME": "if_game"}
+                    </select>
+                </div>-->
             </div>
         </div>
         <footer>
