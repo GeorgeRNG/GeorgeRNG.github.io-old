@@ -68,7 +68,7 @@ function selectblock(clickedobj){
     document.getElementById("blockinfo").innerHTML = ""
     selected = Number(clickedobj.target.id.replace("block-",""))
     var final = document.createElement("div")
-    p = document.createElement("p")
+    p = document.createElement("span")
     p.innerHTML = "Block " + String(selected)
     final.appendChild(p)
     var parsed = JSON.parse(code)
@@ -117,7 +117,20 @@ function selectblock(clickedobj){
         final.appendChild(input)
     }
     if(block["id"] == "bracket"){
-        document.createElement("select")
+        final.appendChild(document.createElement("br"))
+        var input = document.createElement("select")
+        input.innerHTML = `<option value="open">Opening Bracket</option><option value="close">Closed Bracket</option>`
+        final.appendChild(input)
+        final.appendChild(document.createElement("br"))
+        var input = document.createElement("input")
+        input.type = "checkbox"
+        input.id = "sticky"
+        input.onclick = () => {console.log(document.getElementById("sticky").checked);}
+        final.appendChild(input)
+        var input = document.createElement("label")
+        input.innerHTML = "Sticky"
+        input.for = "sticky"
+        final.appendChild(input)
     }
     document.getElementById("blockinfo").appendChild(final)
 }
