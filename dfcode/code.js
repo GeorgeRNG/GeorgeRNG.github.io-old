@@ -120,6 +120,14 @@ function selectblock(clickedobj){
         final.appendChild(document.createElement("br"))
         var input = document.createElement("select")
         input.innerHTML = '<option value="open">Opening Bracket</option><option value="close">Closing Bracket</option>'
+        input.value = parsed["blocks"][selected]["direct"]
+        input.id = "direct"
+        input.onchange = () => {
+            var x = parsed
+            x["blocks"][selected]["direct"] = document.getElementById("direct").value
+            code = JSON.stringify(x);
+            rendblocks()
+        }
         final.appendChild(input)
         final.appendChild(document.createElement("br"))
         var input = document.createElement("input")
