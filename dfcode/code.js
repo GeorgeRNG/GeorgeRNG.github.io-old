@@ -42,6 +42,8 @@ function rendblocks(){
             img.onclick = function(index){selectblock(index)};
             img.classList.add("block")
             img.id = "block-" + String(index);
+            img.draggable = false
+            img.ondragstart = () => {return false}
             document.getElementById("code-list").appendChild(img);
         }
         if(block["id"] == "bracket"){
@@ -50,6 +52,8 @@ function rendblocks(){
                 img.onclick = function(index){selectblock(index)};
                 img.classList.add("block")
                 img.id = "block-" + String(index);
+                img.draggable = false
+                img.ondragstart = () => {return false}
                 document.getElementById("code-list").appendChild(img);
             }
             if(block["type"] == "norm"){
@@ -57,6 +61,8 @@ function rendblocks(){
                 img.onclick = function(index){selectblock(index)};
                 img.classList.add("block")
                 img.id = "block-" + String(index);
+                img.draggable = false
+                img.ondragstart = () => {return false}
                 document.getElementById("code-list").appendChild(img);
             }
         }

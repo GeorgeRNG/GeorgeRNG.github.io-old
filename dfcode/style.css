@@ -24,7 +24,15 @@ footer {
   image-rendering: pixelated;                 /* Chrome as of 2019   */
   image-rendering: optimize-contrast;         /* CSS3 Proposed       */
   -ms-interpolation-mode: nearest-neighbor;   /* IE8+                */
+  /*Below is no select.*/
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -o-user-select: none;
+  user-select: none;
 }
+
+
 #codepanel {
   position: fixed;
   padding: 5px;
