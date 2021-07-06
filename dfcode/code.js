@@ -119,13 +119,20 @@ function selectblock(clickedobj){
     if(block["id"] == "bracket"){
         final.appendChild(document.createElement("br"))
         var input = document.createElement("select")
-        input.innerHTML = `<option value="open">Opening Bracket</option><option value="close">Closed Bracket</option>`
+        input.innerHTML = '<option value="open">Opening Bracket</option><option value="close">Closing Bracket</option>'
         final.appendChild(input)
         final.appendChild(document.createElement("br"))
         var input = document.createElement("input")
         input.type = "checkbox"
+        if(parsed["blocks"][selected]["type"] == "repeat"){
+            input.checked = true
+        }
         input.id = "sticky"
-        input.onclick = () => {console.log(document.getElementById("sticky").checked);}
+        input.onclick = () => {
+            var x = parsed
+                x["blocks"][selected]["type"] = document.getElementById("sticky").checked ?  "repeat" : "norm"
+                code = JSON.stringify(x);
+                rendblocks()}
         final.appendChild(input)
         var input = document.createElement("label")
         input.innerHTML = "Sticky"
