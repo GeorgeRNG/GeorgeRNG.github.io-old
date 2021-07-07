@@ -140,11 +140,68 @@ function selectblock(clickedobj){
     document.getElementById("blockinfo").appendChild(final)
 }
 
-/*function selectblock(clickedobj){
+function selectblock(clickedobj){
     var selected = Number(clickedobj.target.id.replace("block-",""))
-    document.getElementById("blockinfo").innerHTML = "<p>Block " + selected
-    
-}*/
+    document.getElementById("blockinfo").innerHTML = "<p>Block " + selected + "</p>"
+    var parsed = JSON.parse(code)
+    var block = parsed["blocks"][selected]
+    if(block["id"] == "block"){for(var key in block){
+        if(!(key == "args" || key == "id" || key == "block")){
+        var obj = document.createElement("label")
+        obj.innerHTML = key + " "
+        obj.setAttribute("type","text")
+        obj.setAttribute("for",key)
+        document.getElementById("blockinfo").appendChild(obj)
+        var obj = document.createElement("input")
+        obj.type = "text"
+        obj.id = key
+        try{
+        obj.value = block[key]}
+        catch{
+            obj.value = ""
+        }
+        obj.onchange = (event) => {
+            var x = parsed
+            x["blocks"][selected][event.target.id] = document.getElementById(event.target.id).value
+            code = JSON.stringify(x)
+            rendblocks()
+        }
+        document.getElementById("blockinfo").appendChild(obj)
+        document.getElementById("blockinfo").appendChild(document.createElement("br"))}
+    }}
+    if(block["id"] == "bracket"){
+        var final = document.createElement("div")
+        var input = document.createElement("select")
+        input.innerHTML = '<option value="open">Opening Bracket</option><option value="close">Closing Bracket</option>'
+        input.value = parsed["blocks"][selected]["direct"]
+        input.id = "direct"
+        input.onchange = () => {
+            var x = parsed
+            x["blocks"][selected]["direct"] = document.getElementById("direct").value
+            code = JSON.stringify(x);
+            rendblocks()
+        }
+        final.appendChild(input)
+        final.appendChild(document.createElement("br"))
+        var input = document.createElement("input")
+        input.type = "checkbox"
+        if(parsed["blocks"][selected]["type"] == "repeat"){
+            input.checked = true
+        }
+        input.id = "sticky"
+        input.onclick = () => {
+            var x = parsed
+                x["blocks"][selected]["type"] = document.getElementById("sticky").checked ?  "repeat" : "norm"
+                code = JSON.stringify(x);
+                rendblocks()}
+        final.appendChild(input)
+        var input = document.createElement("label")
+        input.innerHTML = "Sticky"
+        input.for = "sticky"
+        final.appendChild(input)
+        document.getElementById("blockinfo").appendChild(final)
+    }
+}
 
 function copy() {
     var copyText = document.getElementById("encodedoutput");
