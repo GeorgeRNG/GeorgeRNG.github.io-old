@@ -17,7 +17,8 @@
             <div>
                 <button id="raw-code-upload" onclick="importcode()">Import</button>
                 <button id="raw-code-export" onclick="exportcode()">Export</button>
-                <button id="raw-code-pretty" onclick="prettycode()">Pretty Print</button>
+                <label for="pretty">Pretty Print?</label>
+                <input type="checkbox" id="pretty" onchange="rendblocks()">
                 <button id="raw-code-copy" onclick="copy()">Quick Copy Exported Text</button>
             </div>
             <br/>

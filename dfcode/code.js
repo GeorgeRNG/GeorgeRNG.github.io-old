@@ -24,17 +24,13 @@ function exportcode(){
         document.getElementById("encodedoutput").value = (btoa(String.fromCharCode.apply(null, new Uint16Array(pako.gzip(code)))));
     }catch(er){err(er)}
 }
-function prettycode(){
-    try{
-        code = JSON.stringify(JSON.parse(code),null,'\t')
-    }catch(er){
-        err(er)
-    }
-    rendblocks()
-}
 
 function rendblocks(){
-    document.getElementById("rawdecoded").value = code
+    if(document.getElementById("pretty").checked){
+        document.getElementById("rawdecoded").value = JSON.stringify(JSON.parse(code),null,2);
+    }else{
+        document.getElementById("rawdecoded").value = code
+    }
     document.getElementById("code-list").innerHTML = ""
     JSON.parse(code)["blocks"].forEach((block, index) => {
         img = document.createElement("img");
