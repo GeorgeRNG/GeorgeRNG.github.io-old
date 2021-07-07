@@ -37,37 +37,21 @@ function rendblocks(){
     document.getElementById("rawdecoded").value = code
     document.getElementById("code-list").innerHTML = ""
     JSON.parse(code)["blocks"].forEach((block, index) => {
+        img = document.createElement("img");
         if(block["id"] == "block"){
-            img = (imgelement("images/normal/" + block["block"] + ".png", ["block"]));
-            img.onclick = function(index){selectblock(index)};
-            img.classList.add("block")
-            img.id = "block-" + String(index);
-            img.draggable = false
-            img.ondragstart = () => {return false}
-            document.getElementById("code-list").appendChild(img);
-        }
+            img.src = "images/normal/" + block["block"] + ".png"}
         if(block["id"] == "bracket"){
-            if(block["type"] == "repeat"){
-                img = (imgelement("images/brackets/" + block["direct"] + "s.png", ["block"]));
-                img.onclick = function(index){selectblock(index)};
-                img.classList.add("block")
-                img.id = "block-" + String(index);
-                img.draggable = false
-                img.ondragstart = () => {return false}
-                document.getElementById("code-list").appendChild(img);
-            }
-            if(block["type"] == "norm"){
-                img = (imgelement("images/brackets/" + block["direct"] + ".png", ["block"]));
-                img.onclick = function(index){selectblock(index)};
-                img.classList.add("block")
-                img.id = "block-" + String(index);
-                img.draggable = false
-                img.ondragstart = () => {return false}
-                document.getElementById("code-list").appendChild(img);
-            }
+            img.src = "images/brackets/" + block["direct"]
+            if(block["type"] == "repeat"){img.src = img.src + "s.png"}else{img.src = img.src + ".png"}
         }
-        
-    });
+        img.classList = ["block"]
+        img.onclick = function(index){selectblock(index)};
+        img.classList.add("block")
+        img.id = "block-" + String(index);
+        img.draggable = false
+        img.ondragstart = () => {return false}
+        document.getElementById("code-list").appendChild(img);
+    })
 }
 
 function selectblock(clickedobj){
@@ -156,12 +140,11 @@ function selectblock(clickedobj){
     document.getElementById("blockinfo").appendChild(final)
 }
 
-function imgelement(link, classes = []){
-    img = document.createElement("img");
-    img.src = link
-    img.classList = classes
-    return img
-}
+/*function selectblock(clickedobj){
+    var selected = Number(clickedobj.target.id.replace("block-",""))
+    document.getElementById("blockinfo").innerHTML = "<p>Block " + selected
+    
+}*/
 
 function copy() {
     var copyText = document.getElementById("encodedoutput");
