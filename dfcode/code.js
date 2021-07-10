@@ -51,6 +51,7 @@ function rendblocks(){
 }
 
 function oneblock(key,block){
+    var parsed = JSON.parse(code)
     if(!(key == "args" || key == "id" || key == "block")){
         var obj = document.createElement("label")
         obj.innerHTML = key + " "
@@ -77,7 +78,7 @@ function oneblock(key,block){
 }
 
 function selectblock(clickedobj){
-    var selected = Number(clickedobj.target.id.replace("block-",""))
+    selected = Number(clickedobj.target.id.replace("block-",""))
     document.getElementById("blockinfo").innerHTML = "<p>Block " + selected + "</p>"
     var parsed = JSON.parse(code)
     var block = parsed["blocks"][selected]
