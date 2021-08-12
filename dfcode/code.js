@@ -12,7 +12,13 @@ function err(text,type=""){
 
 function importcode(){
     try{
-        var decoded = String.fromCharCode.apply(null, new Uint16Array(pako.inflate(atob(document.getElementById("encodedinput").value).split('').map(function(x){return x.charCodeAt(0);}))));
+        var textin = document.getElementById("encodedinput").value
+        var found = textin.match(/"code":"[a-z,A-Z,0-9,/,=]+/);
+        if (found != null){
+            textin = found[0].replace('"code":"','');
+            console.log(textin)
+        }
+        var decoded = String.fromCharCode.apply(null, new Uint16Array(pako.inflate(atob(textin).split('').map(function(x){return x.charCodeAt(0);}))));
         code = decoded
         rendblocks()
     }catch(er){
