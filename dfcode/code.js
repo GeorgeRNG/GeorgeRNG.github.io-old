@@ -50,7 +50,7 @@ function rendblocks(){
     })
 }
 
-function oneblock(key,block){
+function singleblock(key,block){
     var parsed = JSON.parse(code)
     if(!(key == "args" || key == "id" || key == "block")){
         var obj = document.createElement("label")
@@ -59,8 +59,9 @@ function oneblock(key,block){
         obj.setAttribute("for",key)
         document.getElementById("blockinfo").appendChild(obj)
         var obj = document.createElement("input")
-        obj.type = "text"
-        obj.id = key
+        obj.type = "text";
+        obj.maxLength = 30;
+        obj.id = key;
         try{
         obj.value = block[key]}
         catch{
@@ -83,7 +84,7 @@ function selectblock(clickedobj){
     var parsed = JSON.parse(code)
     var block = parsed["blocks"][selected]
     if(block["id"] == "block"){for(var key in block){
-        oneblock(key,block)
+        singleblock(key,block)
     }}
     if(block["id"] == "bracket"){
         var final = document.createElement("div")
@@ -118,8 +119,6 @@ function selectblock(clickedobj){
         document.getElementById("blockinfo").appendChild(final)
     }
 }
-
-
 
 function copy() {
     var copyText = document.getElementById("encodedoutput");
