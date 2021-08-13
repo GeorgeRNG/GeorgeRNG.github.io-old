@@ -1,4 +1,4 @@
-body {background-color: cyan; font-family: Arial, Helvetica, sans-serif;}
+body {background-color: grey; font-family: Arial, Helvetica, sans-serif;}
 #body {width: 80%;
     background-color: aliceblue;
     margin:auto;
@@ -7,6 +7,6 @@ body {background-color: cyan; font-family: Arial, Helvetica, sans-serif;}
     height: max-content;
     border: 1px solid;
     padding: 10px;
-    box-shadow: 0px 0px 20px #888888;
+    box-shadow: 0px 0px 20px #000000;
     font-size: 2vh
 }
