@@ -13,7 +13,7 @@ function err(text,type=""){
 function importcode(){
     try{
         var textin = document.getElementById("encodedinput").value
-        var found = textin.match(/"code":"[a-z,A-Z,0-9,/,=]+/);
+        var found = textin.match(/"code":"[a-z,A-Z,0-9,/,=,+]+/);
         if (found != null){
             textin = found[0].replace('"code":"','');
             console.log(textin)
