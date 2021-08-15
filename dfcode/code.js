@@ -1,4 +1,5 @@
 code = ""
+document.getElementById("errorbox").style.display = "none"
 
 function err(text,type=""){
     document.getElementById("errorbox").style.display = "initial";
@@ -33,7 +34,11 @@ function exportcode(){
 
 function rendblocks(){
     if(document.getElementById("pretty").checked){
-        document.getElementById("rawdecoded").value = JSON.stringify(JSON.parse(code),null,2);
+        try{
+            document.getElementById("rawdecoded").value = JSON.stringify(JSON.parse(code),null,2);
+        }catch{
+            err("JSON", "A parsing error happened, probably bad JSON.")
+        }
     }else{
         document.getElementById("rawdecoded").value = code
     }
