@@ -1,0 +1,49 @@
+body {background-image: url(images/dirt.png); background-size: 20px; font-family: Arial, Helvetica, sans-serif;}
+#user-codepanel {
+    width: 60%;
+    height: 60%;
+    padding: 25px;
+    border: 1px solid;
+    box-shadow: 0px 0px 20px #000000;
+    background-color: aliceblue;
+    margin:auto;
+    margin-top: 50px;
+}
+#encodedinput{width: 35%;}
+#encodedoutput{width: 35%;}
+
+footer {
+    position: fixed;
+    bottom: 5%;
+    left: 3%;
+    width: 300px;
+    background-color: #ff0000;
+}
+
+.unselectable {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+#rawdecoded{
+    width: 95%;
+}
+
+.block {height: 80px;
+    image-rendering: optimizeSpeed;             /*                     */
+    image-rendering: -moz-crisp-edges;          /* Firefox             */
+    image-rendering: -o-crisp-edges;            /* Opera               */
+    image-rendering: -webkit-optimize-contrast; /* Chrome (and Safari) */
+    image-rendering: pixelated;                 /* Chrome as of 2019   */
+    image-rendering: optimize-contrast;         /* CSS3 Proposed       */
+    -ms-interpolation-mode: nearest-neighbor;   /* IE8+                */
+    /*Below is no select.*/
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+  }
