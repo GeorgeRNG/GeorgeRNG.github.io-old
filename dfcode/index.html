@@ -1,33 +1,37 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8"/>
-        <script>if(navigator.userAgent.indexOf('MSIE') > -1 || navigator.userAgent.indexOf('Trident') > -1){alert("Warning: Internet explorer may not work!")}</script>
-        <script src="pako.js"></script>
-        <script src="code.js"></script> 
-        <link rel="stylesheet" href="style.css"/>
-        <title>
-            RNG Industries Code Editor
-        </title>
-    </head>
-    <body>
-        <a href="help.html" title="Learn how on earth this thing works an stop looking at an alien website">Help And How to basically.</a>
-        <p></p>
-        <div id="import-and-exportcode">
-            <span>Code to Import:</span>
-            <input type="text" id="encodedinput"/>
+<head>
+    <title>RNG Industries Template Editor</title>
+    <meta charset="utf-8"/>
+    <script>if(navigator.userAgent.indexOf('MSIE') > -1 || navigator.userAgent.indexOf('Trident') > -1){alert("Warning: Internet explorer may not work!")}</script>
+    <script src="pako.js"></script>
+    <script src="code.js"></script>
+    <link rel="stylesheet" href="style.css"/>
+    <script>document.getElementById("errorbox").style.display = "none"</script>
+</head>
+<body>
+    <div id="user-codepanel">
+        <div>
+            <a href="help.html">Help And Info</a>
+            <br/><br/>
             <div>
-                <button id="raw-code-upload" onclick="importcode()">Import</button>
-                <button id="raw-code-export" onclick="exportcode()">Export</button>
-                <label for="pretty">Pretty Print?</label>
-                <input type="checkbox" id="pretty" onchange="rendblocks()">
-                <button id="raw-code-copy" onclick="copy()">Quick Copy Exported Text</button>
+            <span>Template Data: </span>
+            <input type="text" id="encodedinput"/>
+            <span> Exported Code: </span>
+            <input id="encodedoutput" value="Export some code" disabled="disabled">
             </div>
-            <br/>
-            <span>Exported Code: </span><input id="encodedoutput" value="Export some code"/ disabled="disabled">
+            <button id="raw-code-upload" onclick="importcode()">Import Code</button>
+            <button id="raw-code-export" onclick="exportcode()">Export Code</button>
+            <button id="raw-code-copy" onclick="copy()">Quick Copy Exported Text</button>
+            <label for="pretty">Pretty Print?</label>
+            <input type="checkbox" id="pretty" onchange="rendblocks()">
         </div>
-        <textarea id="rawdecoded" onchange="code = this.value; rendblocks()">Import some code.</textarea>
+        <div>
+            <br/>
+            <textarea id="rawdecoded" onchange="code = this.value; rendblocks()">This area has the decoded template data in raw json, import a template to start editing, and you can enable pretty print.</textarea>
+        </div>
+        <br/>
         <div id="code-list"></div>
+        <br/>
         <div id="codepanel">
             <div id="blockinfo">
                 <span>You need to select a block.</span>
@@ -70,12 +74,12 @@
                 </div>-->
             </div>
         </div>
-        <footer>
-            <div class="unselectable" id="errorbox" onclick="this.style.display = 'none'">
-                <span id="errortype">Error:</span>
-                <span id="error"></span>
-                <span><br/>Click to hide.</span>
-            </div>
-        </footer>
-    </body>
-</html>
+    </div>
+    <footer>
+        <div class="unselectable" id="errorbox" onclick="this.style.display = 'none'">
+            <span id="errortype">Script Error: </span>
+            <span id="error">Scripts may not be running</span>
+            <span><br/>Click to hide.</span>
+        </div>
+    </footer>
+</body>
