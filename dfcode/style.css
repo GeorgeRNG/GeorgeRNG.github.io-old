@@ -14,10 +14,15 @@ body {background-image: url(images/dirt.png); background-size: 20px; font-family
 
 footer {
     position: fixed;
-    bottom: 5%;
-    left: 3%;
-    width: 300px;
+    bottom: 2%;
+    width: 100%;
+    display: flex;
+}
+
+#errorbox{
     background-color: #ff0000;
+    width: max-content;
+    height: min-content;
 }
 
 .unselectable {
@@ -47,3 +52,12 @@ footer {
     -o-user-select: none;
     user-select: none;
   }
+
+
+#discord {
+    height: 40px;
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    background-color: black;
+}
