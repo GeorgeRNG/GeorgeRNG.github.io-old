@@ -1,0 +1,28 @@
+{
+    "event":
+        {"Line 1":"action","Line 2":"target","Line 3":"inverted"},
+    "control":
+        {"Line 1":"action","Line 2":"target","Line 3":"inverted"},
+    "else": {},
+    "entity_action":
+        {"Line 1":"action","Line 2":"target","Line 3":"inverted"},
+    "entity_event":
+        {"Line 1":"action","Line 2":"target","Line 3":"inverted"},
+    "game_action":
+        {"Line 1":"action","Line 2":"target","Line 3":"inverted"},
+    "if_entity":
+        {"Line 1":"action","Line 2":"target","Line 3":"inverted"},
+    "if_game":
+        {"Line 1":"action","Line 2":"target","Line 3":"inverted"},
+    "if_player":
+        {"Line 1":"action","Line 2":"target","Line 3":"inverted"},
+    "if_var":
+        {"Line 1":"action","Line 2":"target","Line 3":"inverted"},
+    "player_action":
+        {"Line 1":"action","Line 2":"target","Line 3":"inverted"},
+    "repeat":
+        {"Line 1":"action","Line 2":"target","Line 3":"inverted"},
+    "set_var":
+        {"Line 1":"action","Line 2":"target","Line 3":"inverted"}
+
+}

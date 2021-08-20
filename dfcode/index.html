@@ -1,86 +1,87 @@
 <!DOCTYPE html>
-<head>
-    <title>RNG Industries Template Editor</title>
-    <meta charset="utf-8"/>
-    <script>if(navigator.userAgent.indexOf('MSIE') > -1 || navigator.userAgent.indexOf('Trident') > -1){alert("Warning: Internet explorer may not work!")}</script>
-    <script src="pako.js"></script>
-    <script src="code.js"></script>
-    <link rel="stylesheet" href="style.css"/>
-    <script>document.getElementById("errorbox").style.display = "none"</script>
-</head>
-<body>
-    <div id="user-codepanel">
-        <div>
-            <a href="help.html">Help And Info</a>
-            <br/><br/>
+<html lang="en">
+    <head>
+        <title>RNG Industries Template Editor</title>
+        <meta charset="utf-8"/>
+        <script>if(navigator.userAgent.indexOf('MSIE') > -1 || navigator.userAgent.indexOf('Trident') > -1){alert("Warning: Internet explorer may not work!")}</script>
+        <script src="pako.js"></script>
+        <script src="code.js"></script>
+        <link rel="stylesheet" href="style.css"/>
+    </head>
+    <body>
+        <div id="user-codepanel">
             <div>
-            <span>Template Data: </span>
-            <input type="text" id="encodedinput"/>
-            <span> Exported Code: </span>
-            <input id="encodedoutput" value="Export some code" disabled="disabled">
+                <a href="help.html">Help And Info</a>
+                <br/><br/>
+                <div>
+                <span>Template Data: </span>
+                <input type="text" id="encodedinput"/>
+                <span> Exported Code: </span>
+                <input id="encodedoutput" value="Export some code" disabled="disabled">
+                </div>
+                <button id="raw-code-upload" onclick="importcode()">Import Code</button>
+                <button id="raw-code-export" onclick="exportcode()">Export Code</button>
+                <button id="raw-code-copy" onclick="copy()">Quick Copy Exported Text</button>
+                <label for="pretty">Pretty Print?</label>
+                <input type="checkbox" id="pretty" onchange="rendblocks()">
             </div>
-            <button id="raw-code-upload" onclick="importcode()">Import Code</button>
-            <button id="raw-code-export" onclick="exportcode()">Export Code</button>
-            <button id="raw-code-copy" onclick="copy()">Quick Copy Exported Text</button>
-            <label for="pretty">Pretty Print?</label>
-            <input type="checkbox" id="pretty" onchange="rendblocks()">
-        </div>
-        <div>
+            <div>
+                <br/>
+                <textarea id="rawdecoded" onchange="code = this.value; rendblocks()">This area has the decoded template data in raw json, import a template to start editing, and you can enable pretty print.</textarea>
+            </div>
             <br/>
-            <textarea id="rawdecoded" onchange="code = this.value; rendblocks()">This area has the decoded template data in raw json, import a template to start editing, and you can enable pretty print.</textarea>
-        </div>
-        <br/>
-        <div id="code-list"></div>
-        <br/>
-        <div id="codepanel">
-            <div id="blockinfo">
-                <span>You need to select a block.</span>
-                <!--<div id="new-block">
-                    <<button onclick="newblock();">New Block</button>
-                    <select id="block-type">
-                       <optgroup label="PLAYER">
-                          <option value="event">PLAYER EVENT</option>
-                          <option value="player_action">PLAYER ACTION</option>
-                          <option value="if_player">IF PLAYER</option>
-                       </optgroup>
-                       <optgroup label="ENTITY">
-                          <option value="entity_event">ENTITY EVENT</option>
-                          <option value="entity_action">ENTITY ACTION</option>
-                          <option value="if_entity">IF ENTITY</option>
-                       </optgroup>
-                       <optgroup label="GAME">
-                          <option value="game_action">GAME ACTION</option>
-                          <option value="if_game">IF GAME</option>
-                          <option value="control">CONTROL</option>
-                       </optgroup>
-                       <optgroup label="VARIBLE">
-                          <option value="set_var">SET VARIBLE</option>
-                          <option value="if_var">IF VARIBLE</option>
-                          <option value="else">ELSE</option>
-                       </optgroup>
-                       <optgroup label="CALLABLE">
-                          <option value="func">FUNCTION</option>
-                          <option value="call_func">CALL FUNCTION</option>
-                          <option value="process">PROCESS</option>
-                          <option value="start_process">START PROCESS</option>
-                       </optgroup>
-                       <optgroup label="MISCELLANEOUS">
-                          <option value="repeat">REPEAT</option>
-                          <option value="select_obj">SELECT OBJECT</option>
-                          <option value="control">CONTROL</option>
-                       </optgroup>
-                       {"PLAYER ACTION": 'player_action', "PLAYER EVENT":'event', "IF PLAYER": "if_player", "ENITY EVENT": "entity_event", "SET VARIBLE": "set_var", "IF ENTITY": "if_entity", "ENTITY ACTION": "entity_action", "IF VARIBLE": "if_var", "SELECT OBJECT": "select_obj", "GAME ACTION": "game_action", "CONTROL": "control", "REPEAT": "repeat", "IF GAME": "if_game"}
-                    </select>
-                </div>-->
+            <div id="code-list"></div>
+            <br/>
+            <div id="codepanel">
+                <div id="blockinfo">
+                    <span>You need to select a block.</span>
+                    <!--<div id="new-block">
+                        <<button onclick="newblock();">New Block</button>
+                        <select id="block-type">
+                           <optgroup label="PLAYER">
+                              <option value="event">PLAYER EVENT</option>
+                              <option value="player_action">PLAYER ACTION</option>
+                              <option value="if_player">IF PLAYER</option>
+                           </optgroup>
+                           <optgroup label="ENTITY">
+                              <option value="entity_event">ENTITY EVENT</option>
+                              <option value="entity_action">ENTITY ACTION</option>
+                              <option value="if_entity">IF ENTITY</option>
+                           </optgroup>
+                           <optgroup label="GAME">
+                              <option value="game_action">GAME ACTION</option>
+                              <option value="if_game">IF GAME</option>
+                              <option value="control">CONTROL</option>
+                           </optgroup>
+                           <optgroup label="VARIBLE">
+                              <option value="set_var">SET VARIBLE</option>
+                              <option value="if_var">IF VARIBLE</option>
+                              <option value="else">ELSE</option>
+                           </optgroup>
+                           <optgroup label="CALLABLE">
+                              <option value="func">FUNCTION</option>
+                              <option value="call_func">CALL FUNCTION</option>
+                              <option value="process">PROCESS</option>
+                              <option value="start_process">START PROCESS</option>
+                           </optgroup>
+                           <optgroup label="MISCELLANEOUS">
+                              <option value="repeat">REPEAT</option>
+                              <option value="select_obj">SELECT OBJECT</option>
+                              <option value="control">CONTROL</option>
+                           </optgroup>
+                           {"PLAYER ACTION": 'player_action', "PLAYER EVENT":'event', "IF PLAYER": "if_player", "ENITY EVENT": "entity_event", "SET VARIBLE": "set_var", "IF ENTITY": "if_entity", "ENTITY ACTION": "entity_action", "IF VARIBLE": "if_var", "SELECT OBJECT": "select_obj", "GAME ACTION": "game_action", "CONTROL": "control", "REPEAT": "repeat", "IF GAME": "if_game"}
+                        </select>
+                    </div>-->
+                </div>
             </div>
         </div>
-    </div>
-    <footer>
-        <div class="unselectable" id="errorbox" onclick="this.style.display = 'none'">
-            <span id="errortype">Script Error: </span>
-            <span id="error">Scripts may not be running</span>
-            <span><br/>Click to hide.</span>
-        </div>
-    </footer>
-    <a href="https://discord.gg/NqU6XnyVPA" target="_blank"><img id="discord" src="images/Discord.png"></a>
-</body>
+        <footer>
+            <div class="unselectable" id="errorbox" onclick="this.style.display = 'none'">
+                <span id="errortype">Script Error: </span>
+                <span id="error">Scripts may not be running</span>
+                <span><br/>Click to hide.</span>
+            </div>
+        </footer>
+        <a href="https://discord.gg/NqU6XnyVPA" target="_blank" rel=”noopener”><img id="discord" src="images/Discord.png" alt="Discord"></a>
+    </body>
+</html>
