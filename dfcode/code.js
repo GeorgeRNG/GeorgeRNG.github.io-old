@@ -6,6 +6,7 @@ function init(){
     console.log("JS is used.")
     unselect()
     document.getElementById("errorbox").style.display = "none"
+    document.getElementById("rawdecoded").innerHTML = "This area has the decoded template data in raw json, import a template to start editing, and you can enable pretty print."
 }
 
 function err(text, type = "") {
@@ -168,10 +169,10 @@ function selectblock(clickedobj) {
     obj.innerHTML = "Delete Block"
     obj.onclick = () => {
         var parsed = JSON.parse(code);
-        parsed["blocks"].splice(selected,selected)
         if(selected == 0){
             parsed["blocks"].splice(0,1)
-        }
+        }else
+        {parsed["blocks"].splice(selected,selected)}
         code = JSON.stringify(parsed);
         unselect(); 
         rendblocks();}
