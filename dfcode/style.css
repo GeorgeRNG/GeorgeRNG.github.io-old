@@ -12,18 +12,7 @@ body {background-image: url(images/dirt.png); background-size: 20px; font-family
 #encodedinput{width: 35%;}
 #encodedoutput{width: 35%;}
 
-footer {
-    position: fixed;
-    bottom: 2%;
-    width: 100%;
-    display: flex;
-}
 
-#errorbox{
-    background-color: #ff0000;
-    width: max-content;
-    height: min-content;
-}
 
 .unselectable {
     -webkit-touch-callout: none;
@@ -32,7 +21,7 @@ footer {
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
-  }
+}
 #rawdecoded{
     width: 95%;
 }
@@ -51,13 +40,27 @@ footer {
     -moz-user-select: none;
     -o-user-select: none;
     user-select: none;
-  }
+}
 
 
 #discord {
     height: 40px;
-    position: absolute;
-    bottom: 20px;
+    position: fixed;
+    bottom: 10px;
     right: 20px;
     background-color: black;
 }
+#errorbox{
+    background-color: #ff0000;
+    width: max-content;
+    height: min-content;
+    position: fixed;
+    bottom: 10px;
+    left: 20px;
+}
+
+#codepanel {display: flex;}
+
+#blockinfo {width: 30%;}
+
+#new-block {float:left; width: 30%;}

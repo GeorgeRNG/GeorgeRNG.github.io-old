@@ -20,7 +20,7 @@ function err(text, type = "") {
 }
 
 function importcode() {
-    //try {
+    try {
         var textin = document.getElementById("encodedinput").value
         var found = textin.match(/"code":"[a-z,A-Z,0-9,/,=,+]+/);
         if (found != null) {
@@ -31,9 +31,9 @@ function importcode() {
         }))));
         code = decoded
         rendblocks()
-    //} catch (er) {
-    //    err(er, "Import")
-    //}
+    } catch (er) {
+        err(er, "Import")
+    }
 }
 
 function exportcode() {
@@ -55,7 +55,7 @@ function rendblocks() {
         document.getElementById("rawdecoded").value = code
     }
     document.getElementById("code-list").innerHTML = ""
-    JSON.parse(code)["blocks"].forEach((block, index) => {
+    try{JSON.parse(code)["blocks"].forEach((block, index) => {
         img = document.createElement("img");
         if (block["id"] == "block") {
             img.src = "images/normal/" + block["block"] + ".png"
@@ -79,7 +79,10 @@ function rendblocks() {
             return false
         }
         document.getElementById("code-list").appendChild(img);
-    })
+    })}
+    catch(er){
+        err("JSON",er)
+    }
 }
 
 function hardtag(key, label, block) {
@@ -112,7 +115,8 @@ function changeelement(block, tagname, objective) {
 }
 
 function unselect(){
-    document.getElementById("blockinfo").innerHTML = "<span>Click on a preview block to select it, and edit it here!</span>"
+    selected = null;
+    document.getElementById("blockinfo").innerHTML = "<span>Click on a preview block to select it, and edit it here!</span>";
 }
 
 function selectblock(clickedobj) {
@@ -187,4 +191,22 @@ function copy() {
     document.execCommand("copy");
     document.getElementById("encodedoutput").disabled = "disabled"
     alert("It should now be on your clipboard!\n")
+}
+
+function newblock(){
+    var x = Number(document.getElementById("newindex").value)
+    document.getElementById("newindex").value = x;
+    if(x >= 0){
+        try{
+        var parsed = JSON.parse(code);
+        }
+        catch{
+            code = JSON.stringify({"blocks":[]})
+            var parsed = JSON.parse(code);
+        }
+        obj = new Object({"id":"block","block":document.getElementById("block-type").value,"args":{"items":[]}})
+        parsed["blocks"].splice(x,0,obj)
+        code = JSON.stringify(parsed);
+        rendblocks()
+    }else{document.getElementById("newindex").value = 0; newblock()}
 }
