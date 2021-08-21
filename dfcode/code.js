@@ -2,7 +2,11 @@
 
 let hardvalues = {"event":{"Line 1":"action","Line 2":"target","Line 3":"inverted"},"control":{"Line 1":"action","Line 2":"target","Line 3":"inverted"},"else": {},"entity_action":{"Line 1":"action","Line 2":"target","Line 3":"inverted"},"entity_event":{"Line 1":"action","Line 2":"target","Line 3":"inverted"},"game_action":{"Line 1":"action","Line 2":"target","Line 3":"inverted"},"if_entity":{"Line 1":"action","Line 2":"target","Line 3":"inverted"},"if_game":{"Line 1":"action","Line 2":"target","Line 3":"inverted"},"if_player":{"Line 1":"action","Line 2":"target","Line 3":"inverted"},"if_var":{"Line 1":"action","Line 2":"target","Line 3":"inverted"},"player_action":{"Line 1":"action","Line 2":"target","Line 3":"inverted"},"repeat":{"Line 1":"action","Line 2":"target","Line 3":"inverted"},"set_var":{"Line 1":"action","Line 2":"target","Line 3":"inverted"}};
 
-
+function init(){
+    console.log("JS is used.")
+    unselect()
+    document.getElementById("errorbox").style.display = "none"
+}
 
 function err(text, type = "") {
     document.getElementById("errorbox").style.display = "initial";
@@ -15,7 +19,7 @@ function err(text, type = "") {
 }
 
 function importcode() {
-    try {
+    //try {
         var textin = document.getElementById("encodedinput").value
         var found = textin.match(/"code":"[a-z,A-Z,0-9,/,=,+]+/);
         if (found != null) {
@@ -26,9 +30,9 @@ function importcode() {
         }))));
         code = decoded
         rendblocks()
-    } catch (er) {
-        err(er, "Import")
-    }
+    //} catch (er) {
+    //    err(er, "Import")
+    //}
 }
 
 function exportcode() {
@@ -106,6 +110,10 @@ function changeelement(block, tagname, objective) {
     rendblocks();
 }
 
+function unselect(){
+    document.getElementById("blockinfo").innerHTML = "<span>Click on a preview block to select it, and edit it here!</span>"
+}
+
 function selectblock(clickedobj) {
     selected = Number(clickedobj.target.id.replace("block-", ""))
     document.getElementById("blockinfo").innerHTML = "<span>Block " + selected + "</span></br>"
@@ -155,6 +163,19 @@ function selectblock(clickedobj) {
         final.appendChild(input)
         document.getElementById("blockinfo").appendChild(final)
     }
+    document.getElementById("blockinfo").appendChild(document.createElement("br"))
+    var obj = document.createElement("button")
+    obj.innerHTML = "Delete Block"
+    obj.onclick = () => {
+        var parsed = JSON.parse(code);
+        parsed["blocks"].splice(selected,selected)
+        if(selected == 0){
+            parsed["blocks"].splice(0,1)
+        }
+        code = JSON.stringify(parsed);
+        unselect(); 
+        rendblocks();}
+    document.getElementById("blockinfo").appendChild(obj)
 }
 
 function copy() {
