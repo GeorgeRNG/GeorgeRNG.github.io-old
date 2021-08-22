@@ -68,11 +68,13 @@ function rendblocks() {
                 img.src = img.src + ".png"
             }
         }
-        img.classList = ["block"]
         img.onclick = function(index) {
             selectblock(index)
         };
         img.classList.add("block")
+        if(selected == index){
+            img.classList.add("selected")
+        }
         img.id = "block-" + String(index);
         img.draggable = false
         img.ondragstart = () => {
@@ -121,6 +123,7 @@ function unselect(){
 
 function selectblock(clickedobj) {
     selected = Number(clickedobj.target.id.replace("block-", ""))
+    rendblocks()
     document.getElementById("blockinfo").innerHTML = "<span>Block " + selected + "</span></br>"
     var parsed = JSON.parse(code)
     var block = parsed["blocks"][selected]
