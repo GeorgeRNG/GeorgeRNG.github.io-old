@@ -68,6 +68,7 @@ function rendblocks() {
                 img.src = img.src + ".png"
             }
         }
+        img.title = "Block " + String(index);
         img.onclick = function(index) {
             selectblock(index)
         };
