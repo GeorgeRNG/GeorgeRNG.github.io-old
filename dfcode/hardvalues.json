@@ -1,28 +1,37 @@
 {
     "event":
-        {"Line 1":"action","Line 2":"target","Line 3":"inverted"},
+        {"Action":"action","Target Line":"target","NOT Line":"inverted"},
     "control":
-        {"Line 1":"action","Line 2":"target","Line 3":"inverted"},
+        {"Action":"action","Target Line":"target","NOT Line":"inverted"},
     "else": {},
     "entity_action":
-        {"Line 1":"action","Line 2":"target","Line 3":"inverted"},
+        {"Action":"action","Target":"target","NOT Line":"inverted"},
     "entity_event":
-        {"Line 1":"action","Line 2":"target","Line 3":"inverted"},
+        {"Action":"action","Target Line":"target","NOT Line":"inverted"},
     "game_action":
-        {"Line 1":"action","Line 2":"target","Line 3":"inverted"},
+        {"Action":"action","Target Line":"target","NOT Line":"inverted"},
     "if_entity":
-        {"Line 1":"action","Line 2":"target","Line 3":"inverted"},
+        {"Action":"action","Target":"target","NOT":"inverted"},
     "if_game":
-        {"Line 1":"action","Line 2":"target","Line 3":"inverted"},
+        {"Action":"action","Target Line":"target","NOT":"inverted"},
     "if_player":
-        {"Line 1":"action","Line 2":"target","Line 3":"inverted"},
+        {"Action":"action","Target":"target","NOT":"inverted"},
     "if_var":
-        {"Line 1":"action","Line 2":"target","Line 3":"inverted"},
+        {"Action":"action","Target Line":"target","NOT":"inverted"},
     "player_action":
-        {"Line 1":"action","Line 2":"target","Line 3":"inverted"},
+        {"Action":"action","Target":"target","NOT Line":"inverted"},
     "repeat":
-        {"Line 1":"action","Line 2":"target","Line 3":"inverted"},
+        {"Action":"action","Sub Action":"subAction","NOT Line":"inverted"},
     "set_var":
-        {"Line 1":"action","Line 2":"target","Line 3":"inverted"}
-
+        {"Action":"action","Target Line":"target","NOT Line":"inverted"},
+    "func":
+        {"Name":"data"},
+    "process":
+        {"Name":"data"},
+    "call_func":
+        {"Name":"data"},
+    "start_process":
+        {"Name":"data"},
+    "select_obj":
+        {"Action":"action","Sub Action":"subAction","NOT":"inverted"}
 }
