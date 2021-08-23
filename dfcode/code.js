@@ -187,14 +187,19 @@ function selectblock(clickedobj) {
     document.getElementById("blockinfo").appendChild(obj)
 }
 
-function copy() {
+function copy(cmd) {
     var copyText = document.getElementById("encodedoutput");
-    document.getElementById("encodedoutput").disabled = 0
+    document.getElementById("encodedoutput").disabled = 0;
+    var x = copyText.value;
+    if(cmd){
+        document.getElementById("encodedoutput").value = `/give @p minecraft:ender_chest{PublicBukkitValues:{"hypercube:codetemplatedata":'{"author":"GeorgeRNG.github.io","name":"§7Code Template §8» §7Imported Template","version":1,"code":"` + copyText.value + `"}'},display:{Name:'{"extra":[{"bold":false,"italic":false,"underlined":false,"strikethrough":false,"obfuscated":false,"color":"gray","text":"Code Template "},{"italic":false,"color":"dark_gray","text":"» "},{"italic":false,"color":"gray","text":"Imported Template"}],"text":""}'}}`;
+    }
     copyText.select();
     copyText.setSelectionRange(0, 999999);
     document.execCommand("copy");
-    document.getElementById("encodedoutput").disabled = "disabled"
-    alert("It should now be on your clipboard!\n")
+    document.getElementById("encodedoutput").value = x;
+    document.getElementById("encodedoutput").disabled = "disabled";
+    alert("It should now be on your clipboard!\n");
 }
 
 function newblock(){
@@ -202,7 +207,7 @@ function newblock(){
     document.getElementById("newindex").value = x;
     if(x >= 0){
         try{
-        var parsed = JSON.parse(code);
+            var parsed = JSON.parse(code);
         }
         catch{
             code = JSON.stringify({"blocks":[]})

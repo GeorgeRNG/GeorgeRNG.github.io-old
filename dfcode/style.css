@@ -65,6 +65,6 @@ body {background-image: url(images/dirt.png); background-size: 20px; font-family
 
 #codepanel {display: flex;}
 
-#blockinfo {width: 30%;}
+#blockinfo {width: 70%;}
 
-#new-block {float:left; width: 30%;}
+#new-block {float:right; width: 30%;}

@@ -19,11 +19,12 @@
                 <span> Exported Code: </span>
                 <input id="encodedoutput" value="Export some code" disabled="disabled">
                 </div>
-                <button id="raw-code-upload" onclick="importcode()">Import Code</button>
-                <button id="raw-code-export" onclick="exportcode()">Export Code</button>
-                <button id="raw-code-copy" onclick="copy()">Quick Copy Exported Text</button>
+                <button onclick="importcode()">Import Code</button>
+                <button onclick="exportcode()">Export Code</button>
+                <button  onclick="copy(false)">Quick Copy Exported Text</button>
                 <label for="pretty">Pretty Print?</label>
                 <input type="checkbox" id="pretty" onchange="rendblocks()">
+                <button  onclick="copy(true)">Copy Give Command</button>
             </div>
             <div>
                 <br/>
