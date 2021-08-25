@@ -21,10 +21,13 @@
                 </div>
                 <button onclick="importcode()">Import Code</button>
                 <button onclick="exportcode()">Export Code</button>
-                <button  onclick="copy(false)">Quick Copy Exported Text</button>
+                <br>
+                <button onclick="copy(false)">Quick Copy Exported Text</button>
+                <button onclick="copy(true)">Copy Give Command</button>
+                <button id="cu" onclick="sendtocu()" style="display: none;">Send Template To CodeUtilities</button>
+                <br>
                 <label for="pretty">Pretty Print?</label>
                 <input type="checkbox" id="pretty" onchange="rendblocks()">
-                <button  onclick="copy(true)">Copy Give Command</button>
             </div>
             <div>
                 <br/>
@@ -87,7 +90,7 @@
                 <span id="error">Scripts may not be running</span>
                 <span><br/>Click to hide.</span>
             </div>
+            <a href="https://discord.gg/NqU6XnyVPA" target="_blank" rel=”noopener”><img id="discord" src="images/Discord.png" alt="Discord"></a>
         </footer>
-        <a href="https://discord.gg/NqU6XnyVPA" target="_blank" rel=”noopener”><img id="discord" src="images/Discord.png" alt="Discord"></a>
     </body>
 </html>

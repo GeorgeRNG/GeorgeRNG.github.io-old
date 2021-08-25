@@ -6,8 +6,25 @@ function init(){
     console.log("JS is used.")
     unselect()
     document.getElementById("errorbox").style.display = "none"
-    document.getElementById("rawdecoded").innerHTML = "This area has the decoded template data in raw json, import a template to start editing, and you can enable pretty print."
-}
+    ws = new WebSocket("ws://localhost:31371/codeutilities/item");
+    ws.onopen = () => {
+        document.getElementById("cu").style.display = "initial";
+    }
+    ws.onmessage = event => {
+        var data = JSON.parse(event.data)
+        if(data["type"] == "template"){
+            document.getElementById("encodedinput").value = JSON.parse(data["received"])["code"]
+            importcode()
+            alert("Recieved template from codeutilities!")
+        }
+        if(data["status"] == "error"){
+            err("CodeUtilities",data["error"])
+        }
+        if(data["status"] == "success"){
+            alert("Success!")
+        }
+    }
+    }
 
 function err(text, type = "") {
     document.getElementById("errorbox").style.display = "initial";
@@ -42,6 +59,16 @@ function exportcode() {
     } catch (er) {
         err(er)
     }
+}
+
+function sendtocu(){
+    ws.send(
+            JSON.stringify(
+                {"type":"template","source":"georgerng.github.io","data":
+                    JSON.stringify({"name":"§7Code Template §8» §7Imported Template","data":document.getElementById("encodedoutput").value})
+                }
+            )
+        )
 }
 
 function rendblocks() {
