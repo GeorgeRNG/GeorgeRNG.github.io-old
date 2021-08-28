@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+    <script>
+        function small(){
+            document.getElementById("json").value = JSON.stringify(JSON.parse(document.getElementById("json").value))
+        }
+    </script>
+    <body>
+        <textarea id="json">{}</textarea>
+        <br>
+        <button onclick="small()">Compact</button>
+    </body>
+</html>
