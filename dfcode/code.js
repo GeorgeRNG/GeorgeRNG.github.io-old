@@ -1,30 +1,45 @@
 //the following line hopefully saves my sanity by making it clear where everything is lol.
 
-let hardvalues = {"event":{"Action":"action","Target Line":"target","NOT Line":"inverted"},"control":{"Action":"action","Target Line":"target","NOT Line":"inverted"},"else":{},"entity_action":{"Action":"action","Target":"target","NOT Line":"inverted"},"entity_event":{"Action":"action","Target Line":"target","NOT Line":"inverted"},"game_action":{"Action":"action","Target Line":"target","NOT Line":"inverted"},"if_entity":{"Action":"action","Target":"target","NOT":"inverted"},"if_game":{"Action":"action","Target Line":"target","NOT":"inverted"},"if_player":{"Action":"action","Target":"target","NOT":"inverted"},"if_var":{"Action":"action","Target Line":"target","NOT":"inverted"},"player_action":{"Action":"action","Target":"target","NOT Line":"inverted"},"repeat":{"Action":"action","Sub Action":"subAction","NOT Line":"inverted"},"set_var":{"Action":"action","Target Line":"target","NOT Line":"inverted"},"func":{"Name":"data"},"process":{"Name":"data"},"call_func":{"Name":"data"},"start_process":{"Name":"data"},"select_obj":{"Action":"action","Sub Action":"subAction","NOT":"inverted"}}
+
 
 function init(){
-    console.log("JS is used.")
+    fetch('https://georgerng.github.io/dfcode/hardvalues.json')
+        .then(response => response.json())
+        .then(data => hardvalues = data)
+        .then(console.log("Got hardvalues."));
+    fetch('https://georgerng.github.io/dfcode/db.json')
+        .then(response => response.json())
+        .then(data => db = data)
+        .then(console.log("Got db.json."))
     unselect()
     document.getElementById("errorbox").style.display = "none"
-    ws = new WebSocket("ws://localhost:31371/codeutilities/item");
-    ws.onopen = () => {
-        document.getElementById("cu").style.display = "initial";
+    try{
+        ws = new WebSocket("ws://localhost:31371/codeutilities/item");
+    }catch{
+        console.log("Couldn't connect to codeutilities.")
     }
-    ws.onmessage = event => {
-        var data = JSON.parse(event.data)
-        if(data["type"] == "template"){
-            document.getElementById("encodedinput").value = JSON.parse(data["received"])["code"]
-            importcode()
-            alert("Recieved template from codeutilities!")
+    finally{
+        ws.onopen = () => {
+            document.getElementById("cu").style.display = "initial";
+            console.log("Connected to codeutilites.")
         }
-        if(data["status"] == "error"){
-            err("CodeUtilities",data["error"])
+        ws.onmessage = event => {
+            var data = JSON.parse(event.data)
+            if(data["type"] == "template"){
+                document.getElementById("encodedinput").value = JSON.parse(data["received"])["code"]
+                importcode()
+                alert("Recieved template from codeutilities!")
+            }
+            if(data["status"] == "error"){
+                err(data["error"],"CodeUtilities")
+            }
+            if(data["status"] == "success"){
+                alert("Success!")
+            }
         }
-        if(data["status"] == "success"){
-            alert("Success!")
-        }
+        
     }
-    }
+}
 
 function err(text, type = "") {
     document.getElementById("errorbox").style.display = "initial";
@@ -76,7 +91,7 @@ function rendblocks() {
         try {
             document.getElementById("rawdecoded").value = JSON.stringify(JSON.parse(code), null, 2);
         } catch {
-            err("JSON", "A parsing error happened, probably bad JSON.")
+            err("A parsing error happened, probably bad JSON.","JSON")
         }
     } else {
         document.getElementById("rawdecoded").value = code
@@ -111,7 +126,7 @@ function rendblocks() {
         document.getElementById("code-list").appendChild(img);
     })}
     catch(er){
-        err("JSON",er)
+        err(er,"JSON")
     }
 }
 
@@ -122,6 +137,7 @@ function hardtag(key, label, block) {
     obj.for = key;
     document.getElementById("blockinfo").appendChild(obj);
     var obj = document.createElement("input");
+    obj.value = key;
     obj.id = key;
     obj.type = "text";
     var x = parsed["blocks"][block][key]
@@ -135,6 +151,15 @@ function hardtag(key, label, block) {
     }
     document.getElementById("blockinfo").appendChild(obj);
     document.getElementById("blockinfo").appendChild(document.createElement("br"));
+}
+
+function inventory(block){
+    document.getElementById("inventory").innerHTML = "<div id=\"row1\"></div><div id=\"row2\"></div><div id=\"row3\"></div>"
+    var parsed = JSON.parse(code)["blocks"][block]
+    parsed["args"]["items"].forEach((x,i) => {
+        document.getElementById("row"+String(Math.ceil((x["slot"] + 1)/9)))
+    })
+    
 }
 
 function changeelement(block, tagname, objective) {
@@ -240,7 +265,16 @@ function newblock(){
             code = JSON.stringify({"blocks":[]})
             var parsed = JSON.parse(code);
         }
-        obj = new Object({"id":"block","block":document.getElementById("block-type").value,"args":{"items":[]}})
+        var y = document.getElementById("block-type").value
+        if(y[0] != ".")
+        {
+            var obj = {"id":"block","block":y,"args":{"items":[]}}
+        }
+        else
+        {
+            y = y.replace(".","").split(",")
+            var obj = {"id":"bracket","direct":y[1],"type":y[0]}
+        }
         parsed["blocks"].splice(x,0,obj)
         code = JSON.stringify(parsed);
         rendblocks()

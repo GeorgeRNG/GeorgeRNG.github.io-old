@@ -63,8 +63,12 @@ body {background-image: url(images/dirt.png); background-size: 20px; font-family
     left: 20px;
 }
 
-#codepanel {display: flex;}
+#codeinfo {width: 100%; display: flex;}
 
-#blockinfo {width: 70%;}
+#codepanel {display: flex; width: 100%;}
 
-#new-block {float:right; width: 30%;}
+#blockinfo {width: 100%;}
+
+#inventory {width: 100%;}
+
+#new-block {width: 30%; float: right;}

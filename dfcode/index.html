@@ -27,7 +27,7 @@
                 <button id="cu" onclick="sendtocu()" style="display: none;">Send Template To CodeUtilities</button>
                 <br>
                 <label for="pretty">Pretty Print?</label>
-                <input type="checkbox" id="pretty" onchange="rendblocks()">
+                <input type="checkbox" id="pretty" value="pretty" onchange="rendblocks()">
             </div>
             <div>
                 <br/>
@@ -37,10 +37,18 @@
             <div id="code-list"></div>
             <br/>
             <div id="codepanel">
-                <div id="blockinfo">
-                    <span>You need to select a block.</span>
+                <div id="codeinfo">
+                    <div id="blockinfo">
+                        <span>You need to select a block.</span>
+                    </div>
+                    <div id="inventory">
+                        <div id="row1">
+                            <div></div>
+                        </div>
+                        <div id="row2"></div>
+                        <div id="row3"></div>
+                    </div>
                 </div>
-                <br>
                 <div id="new-block">
                     <button onclick="newblock();">New Block</button>
                     <select id="block-type">
@@ -74,6 +82,12 @@
                           <option value="repeat">REPEAT</option>
                           <option value="select_obj">SELECT OBJECT</option>
                           <option value="control">CONTROL</option>
+                       </optgroup>
+                       <optgroup label="BRACKETS">
+                            <option value=".norm,open">OPENING</option>
+                            <option value=".norm,close">CLOSING</option>
+                            <option value=".repeat,open">STICKY OPENING</option>
+                            <option value=".repeat,close">STICKY CLOSING</option>
                        </optgroup>
                        <!--{"PLAYER ACTION": 'player_action', "PLAYER EVENT":'event', "IF PLAYER": "if_player", "ENITY EVENT": "entity_event", "SET VARIBLE": "set_var", "IF ENTITY": "if_entity", "ENTITY ACTION": "entity_action", "IF VARIBLE": "if_var", "SELECT OBJECT": "select_obj", "GAME ACTION": "game_action", "CONTROL": "control", "REPEAT": "repeat", "IF GAME": "if_game"}-->
                     </select>
