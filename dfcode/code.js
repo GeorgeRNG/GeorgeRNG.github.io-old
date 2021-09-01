@@ -175,8 +175,8 @@ function inventory(block){
             img.classList = "item unselectable"
             img.onclick = event => {item(Number(event.target.id.replace("item","")));}
             img.onmousedown = () => {return false}
-            if(x["item"]["id"] == "item"){img.src = "images/rends/" + x["item"]["data"]["item"].match(/id:"[a-z]+:[a-z_]+"/g)[0].replace('id:"minecraft:','').replace('"','') + ".png"} //render for normal items.
-            if(x["item"]["id"] in hardvalues["values"]["mats"]){img.src = "images/rends/" + hardvalues["values"]["mats"][x["item"]["id"]] + ".png"} //render for value items
+            if(x["item"]["id"] == "item"){img.src = "images/rends/" + x["item"]["data"]["item"].match(/id:"[a-z]+:[a-z_]+"/g)[0].replace('id:"minecraft:','').replace('"','').toUpperCase() + ".png"} //render for normal items.
+            if(x["item"]["id"] in hardvalues["values"]["mats"]){img.src = "images/rends/" + hardvalues["values"]["mats"][x["item"]["id"]].toUpperCase() + ".png"} //render for value items
             document.getElementById("slot" + String(i)).appendChild(img)
         // document.getElementById("row"+String(Math.ceil((x["slot"] + 1)/9))) // If I ever want to this gets me the element 
         })
