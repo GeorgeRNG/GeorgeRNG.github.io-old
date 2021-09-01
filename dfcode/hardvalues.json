@@ -49,6 +49,12 @@
             "snd":"nautilus_shell",
             "part":"white_dye",
             "pot":"dragon_breath"
+        },
+        "tags":{
+            "var":{
+                "name":"Name",
+                "scope":"Scope"
+            }
         }
     }
 }
