@@ -134,7 +134,7 @@ function hardtag(key, label, block) {
     var parsed = JSON.parse(code);
     var obj = document.createElement("label");
     obj.innerHTML = label + " ";
-    obj.for = key;
+    obj.setAttribute("for",key);
     document.getElementById("blockinfo").appendChild(obj);
     var obj = document.createElement("input");
     obj.value = key;
@@ -220,7 +220,7 @@ function selectblock(clickedobj) {
         final.appendChild(input)
         var input = document.createElement("label")
         input.innerHTML = "Sticky"
-        input.for = "sticky"
+        input.setAttribute("for","sticky")
         final.appendChild(input)
         document.getElementById("blockinfo").appendChild(final)
     }
