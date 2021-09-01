@@ -1,43 +1,44 @@
-//the following line hopefully saves my sanity by making it clear where everything is lol.
-
-
-
 function init(){
-    fetch('https://georgerng.github.io/dfcode/hardvalues.json')
-        .then(response => response.json())
-        .then(data => hardvalues = data)
-        .then(console.log("Got hardvalues."));
-    fetch('https://georgerng.github.io/dfcode/db.json')
-        .then(response => response.json())
-        .then(data => db = data)
-        .then(console.log("Got db.json."))
+    { // Commenting may end this from being like hell for me. Following are fetches.
+        fetch('https://georgerng.github.io/dfcode/hardvalues.json') // This gets the hardvaules.
+            .then(response => response.json())
+            .then(data => hardvalues = data)
+            .then(console.log("Got hardvalues."));
+        fetch('https://georgerng.github.io/dfcode/db.json') // Gets ?actiondump.
+            .then(response => response.json())
+            .then(data => db = data)
+            .then(console.log("Got db.json."))
+            window.onbeforeunload = () => {ws.close()}
+    }
+    inventory("reset")
     unselect()
     document.getElementById("errorbox").style.display = "none"
-    try{
-        ws = new WebSocket("ws://localhost:31371/codeutilities/item");
-    }catch{
-        console.log("Couldn't connect to codeutilities.")
-    }
-    finally{
-        ws.onopen = () => {
-            document.getElementById("cu").style.display = "initial";
-            console.log("Connected to codeutilites.")
+    { // codeutilities stuff
+        try{
+            ws = new WebSocket("ws://localhost:31371/codeutilities/item");
+        }catch{
+            console.log("Couldn't connect to codeutilities.")
         }
-        ws.onmessage = event => {
-            var data = JSON.parse(event.data)
-            if(data["type"] == "template"){
-                document.getElementById("encodedinput").value = JSON.parse(data["received"])["code"]
-                importcode()
-                alert("Recieved template from codeutilities!")
+        finally{
+            ws.onopen = () => {
+                document.getElementById("cu").style.display = "initial";
+                console.log("Connected to codeutilites.")
             }
-            if(data["status"] == "error"){
-                err(data["error"],"CodeUtilities")
-            }
-            if(data["status"] == "success"){
-                alert("Success!")
+            ws.onmessage = event => {
+                var data = JSON.parse(event.data)
+                if(data["type"] == "template"){
+                    document.getElementById("encodedinput").value = JSON.parse(data["received"])["code"]
+                    importcode()
+                    alert("Recieved template from codeutilities!")
+                }
+                if(data["status"] == "error"){
+                    err(data["error"],"CodeUtilities")
+                }
+                if(data["status"] == "success"){
+                    alert("Success!")
+                }
             }
         }
-        
     }
 }
 
@@ -52,7 +53,10 @@ function err(text, type = "") {
 }
 
 function importcode() {
-    try {
+    try{
+        unselect()
+    }catch{}
+    try { // get the template data to import.
         var textin = document.getElementById("encodedinput").value
         var found = textin.match(/"code":"[a-z,A-Z,0-9,/,=,+]+/);
         if (found != null) {
@@ -77,6 +81,7 @@ function exportcode() {
 }
 
 function sendtocu(){
+    exportcode()
     ws.send(
             JSON.stringify(
                 {"type":"template","source":"georgerng.github.io","data":
@@ -154,12 +159,60 @@ function hardtag(key, label, block) {
 }
 
 function inventory(block){
-    document.getElementById("inventory").innerHTML = "<div id=\"row1\"></div><div id=\"row2\"></div><div id=\"row3\"></div>"
-    var parsed = JSON.parse(code)["blocks"][block]
-    parsed["args"]["items"].forEach((x,i) => {
-        document.getElementById("row"+String(Math.ceil((x["slot"] + 1)/9)))
-    })
-    
+    if(block == "reset")
+    { //reset mode, easy method of clearing the inv preview.
+        selecteditem = null;
+        document.getElementById("itemedit").innerHTML = "";
+        [...Array(25).keys()].forEach((x) => {document.getElementById("slot" + String(x)).innerHTML = null; document.getElementById("slot" + String(x)).appendChild(document.createElement("img"));})
+    }
+    else
+    {
+        inventory("reset")
+        var parsed = JSON.parse(code)["blocks"][block]
+        parsed["args"]["items"].forEach((x,i) => {
+            var img = document.createElement("img")
+            img.id = "item" + String(i)
+            img.classList = "item unselectable"
+            img.onclick = event => {item(Number(event.target.id.replace("item","")));}
+            img.onmousedown = () => {return false}
+            if(x["item"]["id"] == "item"){img.src = "images/rends/" + x["item"]["data"]["item"].match(/id:"[a-z]+:[a-z_]+"/g)[0].replace('id:"minecraft:','').replace('"','') + ".png"} //render for normal items.
+            if(x["item"]["id"] in hardvalues["values"]["mats"]){img.src = "images/rends/" + hardvalues["values"]["mats"][x["item"]["id"]] + ".png"} //render for value items
+            document.getElementById("slot" + String(i)).appendChild(img)
+        // document.getElementById("row"+String(Math.ceil((x["slot"] + 1)/9))) // If I ever want to this gets me the element 
+        })
+    }    
+}
+
+function item(item){
+    try{
+        selecteditem = item;
+        var parsed = JSON.parse(code)["blocks"][selected]["args"]["items"][item];
+        var x = hardvalues["values"]["tags"][parsed["item"]["id"]];
+        document.getElementById("itemedit").innerHTML = ""
+        Object.entries(parsed["item"]["data"]).forEach(y => 
+            {
+                var obj = document.createElement("label");
+                obj.innerHTML = x[y[0]];
+                obj.setAttribute("for",y[0]);
+                document.getElementById("itemedit").appendChild(obj);
+                var obj = document.createElement("input");
+                obj.type = typeof(parsed["item"]["data"][y[0]]) == "string" ? "text" : "number";
+                obj.id = y[0];
+                obj.value = parsed["item"]["data"][y[0]];
+                obj.onchange = event => {
+                    var parsed = JSON.parse(code);
+                    parsed["blocks"][selected]["args"]["items"][selecteditem]["item"]["data"][event.target.id] = event.target.value;
+                    code = JSON.stringify(parsed);
+                    rendblocks()
+                }
+                document.getElementById("itemedit").appendChild(obj);
+            }
+        )
+    }
+    catch
+    {
+        err("It seems that this item cannot be edited yet.","Unknown")
+    }
 }
 
 function changeelement(block, tagname, objective) {
@@ -180,18 +233,20 @@ function selectblock(clickedobj) {
     document.getElementById("blockinfo").innerHTML = "<span>Block " + selected + "</span></br>"
     var parsed = JSON.parse(code)
     var block = parsed["blocks"][selected]
-    try {
-        for ([key, value] of Object.entries(hardvalues["block"][block["block"]])) {
-            hardtag(value, key, selected)
-        }
-    } catch {
-        if (block["id"] == "block") {
+    if(block["id"] == "block"){
+        inventory(selected);
+        try {
+            for ([key, value] of Object.entries(hardvalues["block"][block["block"]])) {
+                hardtag(value, key, selected)
+            }
+        } catch {
             for (var key in block) {
                 hardtag(key, key, selected)
             }
         }
     }
     if (block["id"] == "bracket") {
+        inventory("reset")
         var final = document.createElement("div")
         var input = document.createElement("select")
         input.innerHTML = '<option value="open">Opening Bracket</option><option value="close">Closing Bracket</option>'
@@ -240,6 +295,7 @@ function selectblock(clickedobj) {
 }
 
 function copy(cmd) {
+    exportcode()
     var copyText = document.getElementById("encodedoutput");
     document.getElementById("encodedoutput").disabled = 0;
     var x = copyText.value;

@@ -54,6 +54,31 @@
             "var":{
                 "name":"Name",
                 "scope":"Scope"
+            },
+            "txt":{
+                "name":"Text"
+            },
+            "num":{
+                "name":"Number"
+            },
+            "vec":{
+                "x":"X",
+                "y":"Y",
+                "z":"Z"
+            },
+            "snd":{
+                "sound":"Sound Name",
+                "pitch":"Pitch",
+                "vol":"Volume"
+            },
+            "pot":{
+                "pot":"Potion Name",
+                "dur":"Duration (Ticks)",
+                "amp":"Level"
+            },
+            "g_val":{
+                "type":"Value Name",
+                "target":"Target"
             }
         }
     }
