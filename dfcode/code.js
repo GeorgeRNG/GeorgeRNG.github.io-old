@@ -181,7 +181,7 @@ function selectblock(clickedobj) {
     var parsed = JSON.parse(code)
     var block = parsed["blocks"][selected]
     try {
-        for ([key, value] of Object.entries(hardvalues[block["block"]])) {
+        for ([key, value] of Object.entries(hardvalues["block"][block["block"]])) {
             hardtag(value, key, selected)
         }
     } catch {

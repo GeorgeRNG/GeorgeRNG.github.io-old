@@ -1,37 +1,54 @@
-{
-    "event":
-        {"Action":"action","Target Line":"target","NOT Line":"inverted"},
-    "control":
-        {"Action":"action","Target Line":"target","NOT Line":"inverted"},
-    "else": {},
-    "entity_action":
-        {"Action":"action","Target":"target","NOT Line":"inverted"},
-    "entity_event":
-        {"Action":"action","Target Line":"target","NOT Line":"inverted"},
-    "game_action":
-        {"Action":"action","Target Line":"target","NOT Line":"inverted"},
-    "if_entity":
-        {"Action":"action","Target":"target","NOT":"inverted"},
-    "if_game":
-        {"Action":"action","Target Line":"target","NOT":"inverted"},
-    "if_player":
-        {"Action":"action","Target":"target","NOT":"inverted"},
-    "if_var":
-        {"Action":"action","Target Line":"target","NOT":"inverted"},
-    "player_action":
-        {"Action":"action","Target":"target","NOT Line":"inverted"},
-    "repeat":
-        {"Action":"action","Sub Action":"subAction","NOT Line":"inverted"},
-    "set_var":
-        {"Action":"action","Target Line":"target","NOT Line":"inverted"},
-    "func":
-        {"Name":"data"},
-    "process":
-        {"Name":"data"},
-    "call_func":
-        {"Name":"data"},
-    "start_process":
-        {"Name":"data"},
-    "select_obj":
-        {"Action":"action","Sub Action":"subAction","NOT":"inverted"}
+{"block":
+    {
+        "event":
+            {"Action":"action","Target Line":"target","NOT Line":"inverted"},
+        "control":
+            {"Action":"action","Target Line":"target","NOT Line":"inverted"},
+        "else": {},
+        "entity_action":
+            {"Action":"action","Target":"target","NOT Line":"inverted"},
+        "entity_event":
+            {"Action":"action","Target Line":"target","NOT Line":"inverted"},
+        "game_action":
+            {"Action":"action","Target Line":"target","NOT Line":"inverted"},
+        "if_entity":
+            {"Action":"action","Target":"target","NOT":"inverted"},
+        "if_game":
+            {"Action":"action","Target Line":"target","NOT":"inverted"},
+        "if_player":
+            {"Action":"action","Target":"target","NOT":"inverted"},
+        "if_var":
+            {"Action":"action","Target Line":"target","NOT":"inverted"},
+        "player_action":
+            {"Action":"action","Target":"target","NOT Line":"inverted"},
+        "repeat":
+            {"Action":"action","Sub Action":"subAction","NOT Line":"inverted"},
+        "set_var":
+            {"Action":"action","Target Line":"target","NOT Line":"inverted"},
+        "func":
+            {"Name":"data"},
+        "process":
+            {"Name":"data"},
+        "call_func":
+            {"Name":"data"},
+        "start_process":
+            {"Name":"data"},
+        "select_obj":
+            {"Action":"action","Sub Action":"subAction","NOT":"inverted"}
+    },
+    "values":
+    {
+        "mats":
+        {
+            "g_val":"name_tag",
+            "var":"magma_cream",
+            "txt":"book",
+            "num":"slime_ball",
+            "loc":"paper",
+            "vec":"prismarine_shard",
+            "snd":"nautilus_shell",
+            "part":"white_dye",
+            "pot":"dragon_breath"
+        }
+    }
 }
