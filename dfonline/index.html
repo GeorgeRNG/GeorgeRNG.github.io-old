@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="styles.css">
+        <script src="code.js"></script>
+    </head>
+    <body onload="init(false)">
+        <div id="codeimport">
+            <h1>Import Template</h1>
+            <input id="templatedata" placeholder="Template Data">
+            <button onclick="incode(false)">Import!</button>
+            <button onclick="incode(true)">New!</button>
+            <div id="importassist">
+                <h2>What do I import?</h2>
+                <p>If you are using <a href="https://codeutilities.github.io/">CodeUtilities</a> you can do this: Type /itemdata while holding your template. Press one of Formatted, Unformatted or /dfgive buttons and paste it in the import box.</p>
+                <p>Or, you can use the New button to create an empty template!</p>
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,99 @@
+body {
+    background-color: #3E92CC; 
+    color: white;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    height: 100%;
+    overflow-y: hidden;
+    width:fit-content;
+    image-rendering: crisp-edges;
+    image-rendering: -moz-crisp-edges;          /* Firefox */
+    image-rendering: -o-crisp-edges;            /* Opera */
+    image-rendering: -webkit-optimize-contrast; /* Webkit (non-standard naming)*/
+    -ms-interpolation-mode: nearest-neighbor;   /* IE (non-standard property) */
+}
+
+
+#codeimport {margin: auto; margin-top: 1%; width: 75%; height: 75%; background-color: #13293D; padding: 5%; border-radius: 20px;}
+
+
+#importassist {margin-top: 5%;}
+#importassist a {color: #3E92CC;}
+
+
+.sign {
+    background-image: url(images/normal/sign.png); 
+    width: 170px;
+    display: grid;
+    text-align: center;
+}
+.sign span {
+    color: black;
+}
+
+/*
+#2A628F
+#3E92CC
+#13293D
+#16324F
+#18435A
+*/
+
+
+
+#codespace {
+    background-color: #13293D;
+    border-radius: 10px;
+    padding: 5px;
+    width: fit-content;
+    display: flex;
+    margin-top: auto;
+}
+
+.player_action {background-image: url("images/normal/player_action.png");}
+.if_player {background-image: url("images/normal/if_player.png");}
+.start_process {background-image: url("images/normal/start_process.png");}
+.call_func {background-image: url("images/normal/call_func.png");}
+.control {background-image: url("images/normal/control.png");}
+.set_var {background-image: url("images/normal/set_var.png");}
+.entity_event {background-image: url("images/normal/entity_event.png");}
+.event {background-image: url("images/normal/event.png");}
+.func {background-image: url("images/normal/func.png");}
+.if_entity {background-image: url("images/normal/if_entity.png");}
+.entity_action {background-image: url("images/normal/entity_action.png");}
+.if_var {background-image: url("images/normal/if_var.png");}
+.select_obj {background-image: url("images/normal/select_obj.png");}
+.game_action {background-image: url("images/normal/game_action.png");}
+.else {background-image: url("images/normal/else.png");}
+.process {background-image: url("images/normal/process.png");}
+.repeat {background-image: url("images/normal/repeat.png");}
+.if_game {background-image: url("images/normal/if_game.png");}
+.open {background-image: url("images/normal/open.png");}
+.opens {background-image: url("images/normal/opens.png");}
+.close {background-image: url("images/normal/close.png");}
+.closes {background-image: url("images/normal/closes.png");}
+
+.block {width: 170px; height: 170px; background-size: 170px;}
+
+
+
+#overlay {
+    position: fixed;
+    display: none; 
+    width: 100%; 
+    height: 100%; 
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.5); 
+    z-index: 2;
+}
+
+#overlay div {
+    margin: auto;
+    background-color: #2A628F;
+    width: 75vw;
+    height: 70%;
+    margin-top: 10%;
+}
