@@ -196,7 +196,17 @@ function item(item){
                 obj.setAttribute("for",y[0]);
                 document.getElementById("itemedit").appendChild(obj);
                 var obj = document.createElement("input");
-                obj.type = typeof(parsed["item"]["data"][y[0]]) == "string" ? "text" : "number";
+                obj.type = typeof(parsed["item"]["data"][y[0]]) == "string" ? "text" : "number"; // input type
+                if(typeof(parsed["item"]["data"][y[0]]) == "boolean"){
+                    obj = createElement("select") // but! Location JUST HAD to have a boolean in it!
+                    var v = createElement("option")
+                    v.value = true;
+                    v.innerHTML = "True";
+                    obj.appendChild(v);
+                    v.value = false;
+                    v.innerHTML = "False";
+                    obj.appendChild(v);
+                }
                 obj.id = y[0];
                 obj.value = parsed["item"]["data"][y[0]];
                 obj.onchange = event => {

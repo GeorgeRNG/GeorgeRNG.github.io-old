@@ -79,6 +79,9 @@
             "g_val":{
                 "type":"Value Name",
                 "target":"Target"
+            },
+            "loc":{
+                "isBlock":"Block"
             }
         }
     }
