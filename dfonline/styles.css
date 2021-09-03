@@ -1,6 +1,6 @@
 body {
-    background-color: #3E92CC; 
-    color: white;
+    background-color: #151517; 
+    color: #eae4e4;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
     height: 100%;
@@ -13,41 +13,50 @@ body {
     -ms-interpolation-mode: nearest-neighbor;   /* IE (non-standard property) */
 }
 
+#title {
+    display: flex;
+    left: 0.5%;
+    top: -21.44px;
+    position:fixed;
+}
+#dc {
+    height: 40px;
+    width: 40px;
+    top: 20px;
+    position: relative;
+    left: 10px;
+}
 
-#codeimport {margin: auto; margin-top: 1%; width: 75%; height: 75%; background-color: #13293D; padding: 5%; border-radius: 20px;}
+
+#codeimport {margin: auto; margin-top: 1%; width: 75%; height: 75%; background-color: #1a2227; padding: 5%; border-radius: 20px;}
 
 
 #importassist {margin-top: 5%;}
-#importassist a {color: #3E92CC;}
+#importassist a {color: #151517;}
 
 
 .sign {
     background-image: url(images/normal/sign.png); 
     width: 170px;
-    display: grid;
+    margin-top: 43px;
     text-align: center;
 }
 .sign span {
     color: black;
+    display: block;
+    height: 21px;
+    width: 170px;
+    text-overflow: clip;
 }
-
-/*
-#2A628F
-#3E92CC
-#13293D
-#16324F
-#18435A
-*/
-
 
 
 #codespace {
-    background-color: #13293D;
+    background-color: #1a2227;
     border-radius: 10px;
-    padding: 5px;
+    padding: 10px;
     width: fit-content;
     display: flex;
-    margin-top: auto;
+    margin-top: 43px;
 }
 
 .player_action {background-image: url("images/normal/player_action.png");}
@@ -86,14 +95,22 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0,0,0,0.5); 
+    background-color: rgba(20,20,20,0.5); 
     z-index: 2;
 }
 
 #overlay div {
     margin: auto;
-    background-color: #2A628F;
+    background-color: #1a2227;
     width: 75vw;
     height: 70%;
-    margin-top: 10%;
+    margin-top: 5%;
+    border-radius: 25px;
+    padding: 10px;
+}
+
+input, textarea, select, button {
+	border-color: #736b5e;
+	color: #e8e6e3;
+    background-color: #181a1b
 }
