@@ -6,18 +6,19 @@ function init(nw){
         {//this gets and parses actiondump for needed data.
             fetch('https://georgerng.github.io/dfonline/db.json') // Gets ?actiondump.
                 .then(response => response.json())
-                .then(data => {db = data})
+                .then(data => {db = data; document.getElementById("html").style.cursor = "progress"})
                 .then(() => {// ready:
                     hardvalues = {"idname":Object.fromEntries(db["codeblocks"].map(x => {return [x["identifier"],x["name"]]})),"actions":{}}
                     hardvalues["tagnames"] = ["action","target","subAction","inverted","data"]
                     rendblocks()
                     hardvalues["nameid"] = Object.fromEntries(Object.entries(hardvalues["idname"]).map(x => {return x.reverse()}))
                     db["codeblocks"].map(x => {return x["identifier"]}).forEach(x => {
-                        hardvalues["actions"][x] = []
+                        hardvalues["actions"][x] = [""]
                     })
                     db["actions"].forEach(x => {
                         hardvalues["actions"][hardvalues["nameid"][x["codeblockName"]]].push(x["name"])
                     })
+                    document.getElementById("html").style.cursor = "auto"
                 });
         }
     }
@@ -38,13 +39,7 @@ function rotatecheck(){
     }
 }
 
-function incode(nw){
-    if(nw){
-        document.getElementById("templatedata").value = "H4sIAAAAAAAAA6tWSsrJT84uVrKKjq0FAPAORtkNAAAA"
-    }
-    window.sessionStorage["template"] = document.getElementById("templatedata").value
-    window.location.href = "edit.html";
-}
+
 
 function rendblocks(){
     document.getElementById("codespace").innerHTML = null;
@@ -148,6 +143,45 @@ function edit(event){
     rendblocks()
 }
 
-
-//decode encode stuff
+//decode en/de:code stuff
 function decompress(x){return String.fromCharCode.apply(null,new Uint16Array(pako.inflate(new Uint8Array(atob(x).split('').map((e)=>{return e.charCodeAt(0);})))));}
+function compress(x){return (btoa(String.fromCharCode.apply(null, new Uint16Array(pako.gzip(x)))));}
+
+function incode(nw){
+    if(nw){
+        document.getElementById("templatedata").value = "H4sIAAAAAAAAA6tWSsrJT84uVrKKjq0FAPAORtkNAAAA"
+    }else{
+        var x = document.getElementById("templatedata").value.match(/"code":"[a-z,A-Z,0-9,/,=,+]+/g)
+        if(x != null){
+            document.getElementById("templatedata").value = x[0].replace('"code":"','')
+        }
+    }
+    window.sessionStorage["template"] = document.getElementById("templatedata").value
+    window.location.href = "edit.html";
+}
+
+function codeout(){
+    ctx(true,0);
+    document.getElementById("menu").innerHTML = "";
+    var obj = document.createElement("h2");
+    obj.innerHTML = "Export";
+    document.getElementById("menu").appendChild(obj);
+    obj = document.createElement("p");
+    obj.innerHTML = "There are various ways to get code into diamondfire. The following are the options of getting the template into diamondfire, or copying the template data.";
+    document.getElementById("menu").appendChild(obj);
+    obj = document.createElement("button");
+    obj.innerHTML = "Copy Data";
+    obj.onclick = () => {
+        navigator.clipboard.writeText(compress(JSON.stringify(code)))
+        document.getElementById("overlay").click()
+    }
+    document.getElementById("menu").appendChild(obj)
+    document.getElementById("menu").appendChild(document.createElement("br"))
+    obj = document.createElement("button");
+    obj.innerHTML = "Copy Give Command";
+    obj.onclick = () => {
+        navigator.clipboard.writeText(`/give @p minecraft:ender_chest{PublicBukkitValues:{"hypercube:codetemplatedata":'{"author":"DFOnline","name":"§bDFOnline §3» §bTemplate","version":1,"code":"` + compress(JSON.stringify(code)) + `"}'},display:{Name:'{"extra":[{"bold":false,"italic":false,"underlined":false,"strikethrough":false,"obfuscated":false,"color":"aqua","text":"DFOnline "},{"italic":false,"color":"dark_aqua","text":"» "},{"italic":false,"color":"aqua","text":"Template"}],"text":""}'}} 1`)
+        document.getElementById("overlay").click()
+    }
+    document.getElementById("menu").appendChild(obj)
+}

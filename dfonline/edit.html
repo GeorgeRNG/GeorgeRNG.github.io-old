@@ -1,16 +1,17 @@
 <!DOCTYPE html>
-<html>
+<html id="html">
     <head>
         <meta charset="UTF-8">
         <link rel="stylesheet" href="styles.css">
         <script src="pako.js"></script>
         <script src="code.js"></script>
     </head>
-    <body onload="init(true)" style="width: max-content;">
-        <div id="title">
+    <body onload="init(true)">
+        <header>
             <h1>DFOnline</h1>
             <a title="The Discord" href="https://discord.gg/NqU6XnyVPA"><img id="dc" src="images/Discord.png"></a>
-        </div>
+            <span id="export" onclick="codeout()">Export</span>
+        </header>
         <div id="codespace">
         </div>
         <div id="overlay">
