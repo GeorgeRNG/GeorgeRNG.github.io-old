@@ -108,7 +108,7 @@ function ctx(block, id){
         obj.innerHTML = "Block " + id.toString()
         document.getElementById("menu").appendChild(obj)
         obj = document.createElement("label")
-        obj.innerHTML = "Line 1 "
+        obj.innerHTML = "Action "
         var x = code["blocks"][id]["action"] == undefined ? "data" : "action"
         obj.setAttribute("for",x+String(id))
         document.getElementById("menu").appendChild(obj)
@@ -126,26 +126,64 @@ function ctx(block, id){
         }
         obj.value = code["blocks"][id][x]
         obj.id = x+String(id);
-        obj.onchange = event => {edit(event)}
-        document.getElementById("menu").appendChild(obj)
-        {//overlay stuff.
-            document.getElementById("overlay").style.display = "block";
-            document.getElementById("overlay").onclick = event => {if(event.target.id == "overlay"){event.target.style.display = "none"}}
-            document.getElementById("overlay").oncontextmenu = event => {if(event.target.id == "overlay"){event.target.style.display = "none"}}
+        obj.onchange = event => {edit(event)};
+        document.getElementById("menu").appendChild(obj);
+        if(["player_action","if_player","if_entity","entity_action"].includes(code["blocks"][id]["block"])){
+            document.getElementById("menu").appendChild(document.createElement("br"))
+            obj = document.createElement("label");
+            obj.setAttribute("for","target"+String(id));
+            obj.innerHTML = "Selection "
+            document.getElementById("menu").appendChild(obj)
+            obj = document.createElement("select");
+            obj.id = "target"+String(id);
+            obj.onchange = event => {edit(event)};
+            ["","Selection","Default","Killer","Damager","Shooter","Victim","AllPlayers"].forEach(x => {
+                    var select = document.createElement("option")
+                    select.value = x;
+                    select.innerHTML = x;
+                    obj.appendChild(select)
+                }
+            )
+            obj.value = code["blocks"][id]["target"]
+            document.getElementById("menu").appendChild(obj)
         }
+        obj = ["if_var","if_player","if_entity","if_game"].includes(code["blocks"][id]["block"]);
+        if(obj){
+            document.getElementById("menu").appendChild(document.createElement("br"))
+            obj = document.createElement("label")
+            obj.setAttribute("for","inverted"+String(id));
+            obj.innerHTML = "NOT";
+            document.getElementById("menu").appendChild(obj);
+            obj = document.createElement("input");
+            obj.type = "checkbox";
+            obj.id = "inverted"+String(id);
+            obj.onchange = event => {edit(event)};
+            obj.checked = code["blocks"][id]["inverted"] == "NOT"
+            document.getElementById("menu").appendChild(obj);
+        }
+        
+    }
+    {//overlay stuff.
+        document.getElementById("overlay").style.display = "block";
+        document.getElementById("overlay").onclick = event => {if(event.target.id == "overlay"){event.target.style.display = "none"}}
+        document.getElementById("overlay").oncontextmenu = event => {if(event.target.id == "overlay"){event.target.style.display = "none"}}
     }
 }
 
 function edit(event){
     var id = Number(event.target.id.match(/[0-9]+/g)[0]);
     var tag = event.target.id.replace(String(id),"");
-    code["blocks"][id][tag] = event.target.value;
+    if(tag == "inverted"){
+        code["blocks"][id][tag] = event.target.checked ? "NOT" : ""
+    }else
+    {code["blocks"][id][tag] = event.target.value;}
     rendblocks()
 }
 
-//decode en/de:code stuff
+{//decode en/de:code stuff
 function decompress(x){return String.fromCharCode.apply(null,new Uint16Array(pako.inflate(new Uint8Array(atob(x).split('').map((e)=>{return e.charCodeAt(0);})))));}
 function compress(x){return (btoa(String.fromCharCode.apply(null, new Uint16Array(pako.gzip(x)))));}
+}
 
 function incode(nw){
     if(nw){
