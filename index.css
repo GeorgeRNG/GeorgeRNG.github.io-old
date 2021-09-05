@@ -1,7 +1,28 @@
-body {font-family: sans-serif;}
-header {padding: 10px; background-color:aliceblue; border: solid; border-color: antiquewhite;}
-#projects-list {padding: 10px; display: grid;}
-.app {background-color:rgb(200, 200, 200); width: max-content; padding: 5px; height: 300px;}
-.app:hover {box-shadow: 1px 1px;}
+body {
+    font-family: sans-serif;
+    color: #eae4e4;
+    background-color: #151517;
+}
+
+#projects {
+    display: flex;
+    margin: auto;
+    width: max-content;
+    padding: 25px;
+}
+
+.app {
+    background-color:#1a2227;
+    display: flexbox;
+    border-radius: 10px;
+    width: max-content;
+    text-align: center;
+    padding: 5px;
+    height: 360px;
+    margin: 10px;
+    cursor: pointer;
+}
+.app:hover {box-shadow: black 1px 1px;}
+
 .icon {width: 200px; height: auto;}
-.desc {width: 190px; text-align: center; padding-top: 5%;}
+.desc {width: 190px; padding-top: 5%;}
