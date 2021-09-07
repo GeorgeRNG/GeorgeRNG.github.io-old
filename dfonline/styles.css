@@ -1,3 +1,9 @@
+@font-face {
+    font-family: Minecraft;
+    src: url("Minecraft.otf") format("opentype");
+    font-weight: 100;letter-spacing: -0.016em;line-height: 1.4;font-size: 17px;
+}
+
 body {
     background-color: #151517; 
     color: #eae4e4;
@@ -38,6 +44,11 @@ header {
     text-decoration: underline;
     cursor: pointer;
 }
+#settings{
+    position: fixed;
+    top: 3px;
+    right: 110px;
+}
 
 #codeimport {margin: auto; margin-top: 1%; width: 75%; height: 75%; background-color: #1a2227; padding: 5%; border-radius: 20px;}
 
@@ -53,13 +64,22 @@ header {
     text-align: center;
 }
 .sign span {
+    font-family: 'Minecraft';
     color: black;
     display: block;
     height: 21px;
     width: 170px;
     text-overflow: clip;
 }
-
+.noselect{
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently
+    supported by Chrome and Opera */
+}
 
 #codespace {
     background-color: #1a2227;
@@ -110,7 +130,7 @@ header {
     z-index: 2;
 }
 
-#overlay div {
+#overlay #menu {
     margin: auto;
     background-color: #1a2227;
     width: 75vw;
@@ -118,10 +138,45 @@ header {
     margin-top: 5%;
     border-radius: 25px;
     padding: 10px;
+    position: relative;
+    transition: 0.4s;
+    top: 100%;
+}
+#overlay #menu.slide{
+    top: 0%;
+}
+#menu>div {
+    display: grid;
 }
 
+
 input, textarea, select, button {
-	border-color: #736b5e;
+    border-color: #736b5e;
 	color: #e8e6e3;
-    background-color: #181a1b
+    background-color: #181a1b;
+    cursor: pointer;
+}
+
+select {width: max-content;}
+
+
+input[type="checkbox"] {
+    opacity: 0.6;
+    appearance: none;
+    position: relative;
+    display: inline-flex;
+    width: 14px;
+    height: 14px;
+    top: 0.2em;
+    border: 2px solid #736b5e;
+    border-radius: 4px;
+    outline: 0;
+    transition: 0.3s;
+}
+input[type="checkbox"]:checked{
+    background-color: #e8e6e3;
+    content: url("images/check.svg");
+}
+input[type="checkbox"]:hover{
+    opacity: initial;
 }
