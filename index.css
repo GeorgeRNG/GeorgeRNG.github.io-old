@@ -19,10 +19,11 @@ body {
     text-align: center;
     padding: 5px;
     height: 360px;
-    margin: 10px;
+    margin: 20px;
     cursor: pointer;
+    transition: 0.3s;
 }
-.app:hover {box-shadow: black 1px 1px;}
+.app:hover {box-shadow: black 0px 0px 40px; text-shadow: #1a2227 5px; scale: 1.05;}
 
 .icon {width: 200px; height: auto;}
 .desc {width: 190px; padding-top: 5%;}
