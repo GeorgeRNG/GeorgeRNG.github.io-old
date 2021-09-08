@@ -4,6 +4,19 @@
     font-weight: 100;letter-spacing: -0.016em;line-height: 1.4;font-size: 17px;
 }
 
+@keyframes slideup {
+    0%{top: 100%;}
+    100%{top: 0%;}}
+
+@keyframes fadeout {
+    0%{opacity: 100%;}
+    100%{opacity: 0%; display: none;}
+}
+
+.fadeout {
+    animation: fadeout 0.2s;
+}
+
 body {
     background-color: #151517; 
     color: #eae4e4;
@@ -50,7 +63,7 @@ header {
     right: 110px;
 }
 
-#codeimport {margin: auto; margin-top: 1%; width: 75%; height: 75%; background-color: #1a2227; padding: 5%; border-radius: 20px;}
+#codeimport {margin: auto; margin-top: 1%; width: 75%; height: 75%; background-color: #1a2227; padding: 5%; border-radius: 20px; position: relative; animation: slideup 0.3s 1;}
 
 
 #importassist {margin-top: 5%;}
@@ -128,9 +141,10 @@ header {
     bottom: 0;
     background-color: rgba(20,20,20,0.5); 
     z-index: 2;
+    animation-play-state: initial;
 }
 
-#overlay #menu {
+#menu {
     margin: auto;
     background-color: #1a2227;
     width: 75vw;
@@ -139,11 +153,11 @@ header {
     border-radius: 25px;
     padding: 10px;
     position: relative;
-    transition: 0.4s;
-    top: 100%;
+    animation: slideup 0.3s 1;
 }
-#overlay #menu.slide{
-    top: 0%;
+.slide{
+    animation-name: "slide";
+    animation-duration: 0.35s;
 }
 #menu>div {
     display: grid;

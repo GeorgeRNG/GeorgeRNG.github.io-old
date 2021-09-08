@@ -227,9 +227,10 @@ function ctx(block, id){
     }
     {//overlay stuff.
         document.getElementById("overlay").style.display = "block";
+        document.getElementById("overlay").onanimationend = event => {if(event.target.id == "overlay"){event.target.style.display = "none"; event.target.classList = ""}}
         document.getElementById("overlay").oncontextmenu = event => {event.target.click()}
-        document.getElementById("overlay").onclick = event => {if(event.target.id == "overlay"){event.target.style.display = "none"; document.getElementById("menu").classList = "noselect"}}
-        setTimeout(() => {document.getElementById("menu").classList += " slide"},0)
+        document.getElementById("overlay").onclick = event => {if(event.target.id == "overlay"){event.target.classList = "fadeout"; document.getElementById("menu").animationPlayState = "unset"}}
+        document.getElementById("menu").style.animationPlayState = "running"
     }
 }
 
