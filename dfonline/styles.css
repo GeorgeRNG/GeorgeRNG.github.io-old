@@ -40,6 +40,15 @@ header {
     top: -21.44px;
     position:fixed;
 }
+footer{
+    position: fixed;
+    display: flex;
+    width: 98%;
+    bottom: 0%;
+    right: 0%;
+    margin: 1%;
+}
+
 #dc {
     height: 40px;
     width: 40px;
@@ -67,7 +76,7 @@ header {
 
 
 #importassist {margin-top: 5%;}
-#importassist a {color: #fff;}
+#importassist a {color: #f76300;}
 
 
 .sign {
@@ -188,9 +197,21 @@ input[type="checkbox"] {
     transition: 0.3s;
 }
 input[type="checkbox"]:checked{
-    background-color: #e8e6e3;
+    background-color: #f76300;
     content: url("images/check.svg");
 }
 input[type="checkbox"]:hover{
     opacity: initial;
+}
+
+.codedrag{
+    width: 5%;
+    cursor: grab;
+}
+
+.codedrag{
+    transition: 0.1s;
+}
+.codedrag:hover{
+    scale: 1.1;
 }

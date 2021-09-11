@@ -6,7 +6,19 @@ function init(nw){
         {//this gets and parses actiondump for needed data.
             fetch('https://georgerng.github.io/dfonline/db.json') // Gets ?actiondump.
                 .then(response => response.json())
-                .then(data => {db = data; document.getElementById("html").style.cursor = "progress"})
+                .then(data => {
+                    db = data;
+                    document.getElementById("html").style.cursor = "progress"
+                    var obj
+                    db["codeblocks"].forEach(block => {
+                        obj = document.createElement("img")
+                        obj.src = "images/rends/" + block["item"]["material"].toLowerCase() + ".png"
+                        obj.classList = "blockdrag codedrag noselect"
+                        obj.onclick = () => {return false;}
+                        obj.addEventListener("dragstart",() => {})
+                        document.getElementsByTagName("footer")[0].appendChild(obj)
+                    })
+                })
                 .then(() => {// ready:
                     hv()
                     rendblocks()
@@ -63,12 +75,11 @@ function rendblocks(){
                 src = src + "s"
             }
         }
-        else
-        {//normal blocks
+        else{//normal blocks
             src = block["block"]
             if(block["block"] != "else"){
                 sign = document.createElement("div")
-                sign.className = "sign"
+                sign.className = "sign noselect"
                 obj = document.createElement("span")
                 obj.innerHTML = hardvalues["idname"][block["block"]]
                 sign.appendChild(obj)
@@ -90,7 +101,8 @@ function rendblocks(){
         }
         obj = document.createElement("div");
         obj.id = "block" + String(i)
-        obj.classList = "block " + src;
+        obj.setAttribute("draggable",true)
+        obj.classList = "blockdrag block " + src;
         if(sign != false){
             obj.appendChild(sign)
         }
