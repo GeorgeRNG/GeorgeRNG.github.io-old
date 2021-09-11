@@ -12,7 +12,7 @@ function init(nw){
                     var obj
                     db["codeblocks"].forEach(block => {
                         obj = document.createElement("img")
-                        obj.src = "images/rends/" + block["item"]["material"].toLowerCase() + ".png"
+                        obj.src = "images/rends/" + block["item"]["material"] + ".png"
                         obj.classList = "blockdrag codedrag noselect"
                         obj.onclick = () => {return false;}
                         obj.addEventListener("dragstart",() => {})
