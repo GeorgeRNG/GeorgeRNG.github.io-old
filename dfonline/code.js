@@ -15,7 +15,8 @@ function init(nw){
                         obj.src = "images/rends/" + block["item"]["material"] + ".png"
                         obj.classList = "blockdrag codedrag noselect"
                         obj.onclick = () => {return false;}
-                        obj.addEventListener("dragstart",() => {})
+                        obj.draggable = true
+                        obj.addEventListener("dragstart", event => {drag = null;})
                         document.getElementById("footer").appendChild(obj)
                     })
                 })
@@ -100,8 +101,8 @@ function rendblocks(){
             }
         }
         obj = document.createElement("div");
+        obj.draggable = true
         obj.id = "block" + String(i)
-        obj.setAttribute("draggable",true)
         obj.classList = "blockdrag block " + src;
         if(sign != false){
             obj.appendChild(sign)
@@ -117,8 +118,17 @@ function rendblocks(){
                 //click on block?
             }
         }
+        obj.addEventListener("dragstart", event => {drag = Number(event.target.id.replace("block",""))})
+        obj.addEventListener("dragenter", event => {event.preventDefault();reeds(event).classList.add("codehover");})
+        obj.addEventListener("dragexit", event => {reeds(event).classList.remove("codehover")})
+        obj.addEventListener("drop",event => {event.preventDefault(); reeds(event).classList.remove("codehover"); if(drag != null){var x = code["blocks"][Number(reeds(event).id.replace("block",""))];code["blocks"][Number(reeds(event).id.replace("block",""))] = code["blocks"][drag];code["blocks"][drag] = x;rendblocks()};})
+        obj.addEventListener("dragover", event => {event.preventDefault();})
         document.getElementById("codespace").appendChild(obj)
     })
+}
+
+function reeds(event){
+    return(event.target.parentElement.id == "" ? event = event.target.parentElement.parentElement : event = event.target)
 }
 
 function ctx(block, id){

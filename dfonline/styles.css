@@ -135,7 +135,10 @@ header {
 .close {background-image: url("images/normal/close.png");}
 .closes {background-image: url("images/normal/closes.png");}
 
-.block {width: 170px; height: 170px; background-size: 170px;}
+.block {width: 170px; height: 170px; background-size: 170px; transition: .2s;}
+.codehover{
+    opacity: 0.6;
+}
 
 
 
