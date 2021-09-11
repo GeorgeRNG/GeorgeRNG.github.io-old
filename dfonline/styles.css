@@ -40,7 +40,7 @@ header {
     top: -21.44px;
     position:fixed;
 }
-footer{
+#footer{
     position: fixed;
     display: flex;
     width: 98%;

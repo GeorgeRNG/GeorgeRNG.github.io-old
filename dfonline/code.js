@@ -16,7 +16,7 @@ function init(nw){
                         obj.classList = "blockdrag codedrag noselect"
                         obj.onclick = () => {return false;}
                         obj.addEventListener("dragstart",() => {})
-                        document.getElementsByTagName("footer")[0].appendChild(obj)
+                        document.getElementById("footer").appendChild(obj)
                     })
                 })
                 .then(() => {// ready:
