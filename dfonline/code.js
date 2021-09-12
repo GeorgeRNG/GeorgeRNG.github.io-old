@@ -9,6 +9,8 @@ function init(nw){
                 .then(data => {
                     db = data;
                     document.getElementById("html").style.cursor = "progress"
+                    document.getElementById("dragit").addEventListener("dragover", event => {if(typeof(drag) == "string"){event.preventDefault();}})
+                    document.getElementById("dragit").addEventListener("drop", event => {event.preventDefault(); code["blocks"].push({"id":"block","block":drag,"action":""}); rendblocks()})
                     var obj
                     db["codeblocks"].forEach(block => {
                         obj = document.createElement("img")
@@ -64,7 +66,7 @@ function rotatecheck(){
 
 
 function rendblocks(){
-    document.getElementById("codespace").innerHTML = null;
+    document.getElementById("stuff").innerHTML = null;
     var src;
     var obj;
     var sign;
@@ -122,13 +124,9 @@ function rendblocks(){
         obj.addEventListener("dragstart", event => {drag = Number(event.target.id.replace("block",""))})
         obj.addEventListener("dragenter", event => {event.preventDefault();reeds(event).classList.add("codehover");})
         obj.addEventListener("dragexit", event => {reeds(event).classList.remove("codehover")})
-        obj.addEventListener("drop",event => {event.preventDefault(); reeds(event).classList.remove("codehover"); if(typeof(drag) == "number"){var x = code["blocks"][Number(reeds(event).id.replace("block",""))];code["blocks"][Number(reeds(event).id.replace("block",""))] = code["blocks"][drag];code["blocks"][drag] = x;rendblocks()}else{
-            var x = reeds(event)
-            code["blocks"].splice(Number(x.id.replace("block","")) + Number(event.clientX - x.getBoundingClientRect().x >= x.getBoundingClientRect().width/2 ? 1 : 0),0,{"id":"block","block":drag,"action":""})
-            rendblocks()
-        };})
+        obj.addEventListener("drop",event => {event.preventDefault(); reeds(event).classList.remove("codehover"); if(typeof(drag) == "number"){var x = code["blocks"][Number(reeds(event).id.replace("block",""))];code["blocks"][Number(reeds(event).id.replace("block",""))] = code["blocks"][drag];code["blocks"][drag] = x;rendblocks()}else{var x = reeds(event);code["blocks"].splice(Number(x.id.replace("block","")) + Number(event.clientX - x.getBoundingClientRect().x >= x.getBoundingClientRect().width/2 ? 1 : 0),0,{"id":"block","block":drag,"action":""});rendblocks();};})
         obj.addEventListener("dragover", event => {event.preventDefault();})
-        document.getElementById("codespace").appendChild(obj)
+        document.getElementById("stuff").appendChild(obj)
     })
 }
 
