@@ -14,9 +14,10 @@ function init(nw){
                         obj = document.createElement("img")
                         obj.src = "images/rends/" + block["item"]["material"] + ".png"
                         obj.classList = "blockdrag codedrag noselect"
+                        obj.id = block["identifier"]
                         obj.onclick = () => {return false;}
                         obj.draggable = true
-                        obj.addEventListener("dragstart", event => {drag = null;})
+                        obj.addEventListener("dragstart", event => {drag = event.target.id;})
                         document.getElementById("footer").appendChild(obj)
                     })
                 })
@@ -121,7 +122,11 @@ function rendblocks(){
         obj.addEventListener("dragstart", event => {drag = Number(event.target.id.replace("block",""))})
         obj.addEventListener("dragenter", event => {event.preventDefault();reeds(event).classList.add("codehover");})
         obj.addEventListener("dragexit", event => {reeds(event).classList.remove("codehover")})
-        obj.addEventListener("drop",event => {event.preventDefault(); reeds(event).classList.remove("codehover"); if(drag != null){var x = code["blocks"][Number(reeds(event).id.replace("block",""))];code["blocks"][Number(reeds(event).id.replace("block",""))] = code["blocks"][drag];code["blocks"][drag] = x;rendblocks()};})
+        obj.addEventListener("drop",event => {event.preventDefault(); reeds(event).classList.remove("codehover"); if(typeof(drag) == "number"){var x = code["blocks"][Number(reeds(event).id.replace("block",""))];code["blocks"][Number(reeds(event).id.replace("block",""))] = code["blocks"][drag];code["blocks"][drag] = x;rendblocks()}else{
+            var x = reeds(event)
+            code["blocks"].splice(Number(x.id.replace("block","")) + Number(event.clientX - x.getBoundingClientRect().x >= x.getBoundingClientRect().width/2 ? 1 : 0),0,{"id":"block","block":drag,"action":""})
+            rendblocks()
+        };})
         obj.addEventListener("dragover", event => {event.preventDefault();})
         document.getElementById("codespace").appendChild(obj)
     })
