@@ -9,15 +9,14 @@ function init(nw){
                 .then(data => {
                     db = data;
                     document.getElementById("html").style.cursor = "progress"
+                    document.getElementById("legacy").checked = false
                     document.getElementById("dragit").addEventListener("dragover", event => {if(typeof(drag) == "string"){event.preventDefault();}})
-                    document.getElementById("dragit").addEventListener("drop", event => {event.preventDefault(); code["blocks"].push({"id":"block","block":drag,"action":""}); rendblocks()})
-                    var obj
-                    db["codeblocks"].forEach(block => {
+                    var obj // blocks to add.
                         obj = document.createElement("img")
                         obj.src = "images/rends/" + block["item"]["material"] + ".png"
                         obj.classList = "blockdrag codedrag noselect"
                         obj.id = block["identifier"]
-                        obj.onclick = () => {return false;}
+                        obj.onclick = e => {tooltip(e,db["codeblocks"][i]["item"],true); return false;}
                         obj.draggable = true
                         obj.addEventListener("dragstart", event => {drag = event.target.id;})
                         document.getElementById("footer").appendChild(obj)
@@ -53,6 +52,7 @@ function hv(){
             hardvalues["actions"][hardvalues["nameid"][x["codeblockName"]]].push(x["name"])
         }
     })
+    hardvalues["action"] = Object.fromEntries(db["actions"].map(x => [x["name"],x]))
 }
 
 //some stuff I won't need to care about any further lol.
@@ -63,7 +63,61 @@ function rotatecheck(){
     }
 }
 
-
+function tooltip(event,itemdata,poslocked = false){
+    var cursor = document.getElementById("tooltip")
+    { // innerHTML
+        cursor.innerHTML = ""
+        var obj = document.createElement("span")
+        obj.innerHTML = itemdata["name"]
+        obj.classList = "white"
+        cursor.appendChild(obj)
+        if(itemdata["description"].length != 0){
+            itemdata["description"].forEach(x => {
+                obj = document.createElement("span")
+                obj.innerHTML = x
+                obj.classList = "lightgray"
+                cursor.appendChild(obj)
+            })
+        }
+        if(itemdata["example"].length != 0){
+            obj = document.createElement("span")
+            obj.innerHTML = "<br>Example:"
+            obj.classList = "white"
+            cursor.appendChild(obj)
+            itemdata["example"].forEach(x => {
+                obj = document.createElement("span")
+                obj.innerHTML = x
+                obj.classList = "lightgray"
+                cursor.appendChild(obj)
+            })
+        }
+        if(itemdata["additionalInfo"].length != 0){
+            obj = document.createElement("span")
+            obj.innerHTML = "<br>Additional Info:"
+            obj.classList = "blue"
+            cursor.appendChild(obj)
+            itemdata["additionalInfo"].forEach(x => {
+                obj = document.createElement("span")
+                obj.innerHTML = x
+                obj.classList = "lightgray"
+                cursor.appendChild(obj)
+            })
+        }
+        cursor.style.display = "grid"
+        if(poslocked){
+            cursor.style.position = "fixed"
+            cursor.style.left = String(event.clientX + 10) + "px"
+            cursor.style.top = String(event.clientY - cursor.getBoundingClientRect().height/2) + "px"
+        }
+        else{
+            cursor.style.position = "absolute"
+            cursor.style.left = String(event.layerX + 10) + "px"
+            cursor.style.top = String(event.layerY - cursor.getBoundingClientRect().height/2) + "px"
+        }
+        cursor.innerHTML = cursor.innerHTML.replaceAll("»","<span class=\"aqua\">»</span>")
+        console.log(itemdata)
+    }
+}
 
 function rendblocks(){
     document.getElementById("stuff").innerHTML = null;
@@ -119,6 +173,11 @@ function rendblocks(){
             {
                 ctx(true,event.target.id.replace("block",""))
                 //click on block?
+            }
+        }
+        obj.onclick = event => {
+            if(code["blocks"][Number(reeds(event).id.replace("block",""))]["action"] != ""){
+                tooltip(event,hardvalues["action"][code["blocks"][Number(reeds(event).id.replace("block",""))]["action"]]["icon"])
             }
         }
         obj.addEventListener("dragstart", event => {drag = Number(event.target.id.replace("block",""))})
