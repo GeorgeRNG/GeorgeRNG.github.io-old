@@ -5,13 +5,15 @@ function init(nw){
         window.oncontextmenu = () => {return false}
         {//this gets and parses actiondump for needed data.
             fetch('https://georgerng.github.io/dfonline/db.json') // Gets ?actiondump.
-                .then(response => response.json())
-                .then(data => {
+                .then(response => response.json()) // some code probably from mdn docs.
+                .then(data => { // unready required init
                     db = data;
                     document.getElementById("html").style.cursor = "progress"
                     document.getElementById("legacy").checked = false
                     document.getElementById("dragit").addEventListener("dragover", event => {if(typeof(drag) == "string"){event.preventDefault();}})
+                    document.getElementById("dragit").addEventListener("drop", event => {event.preventDefault(); code["blocks"].push({"id":"block","block":drag,"action":"","args":{"items":[]}}); rendblocks()})
                     var obj // blocks to add.
+                    db["codeblocks"].forEach((block,i) => {
                         obj = document.createElement("img")
                         obj.src = "images/rends/" + block["item"]["material"] + ".png"
                         obj.classList = "blockdrag codedrag noselect"
