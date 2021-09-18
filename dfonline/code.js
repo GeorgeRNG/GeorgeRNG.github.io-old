@@ -31,10 +31,17 @@ function init(nw){
                 });
         }
     }
-    else{// this is for the initial page.
-        ws = new WebSocket("ws://localhost:31371/codeutilities/item") // to be forgotten, gets codeutils item api.
-        ws.onopen = () => {console.log("Can use item api now.")}
-        ws.onmessage = x => {console.log("received item.");document.getElementById("templatedata").value=JSON.parse(JSON.parse(x["data"])["received"])["code"]}
+    else{// this is for the home page, index.html
+        try
+        {
+            document.getElementById("templatedata").value = window.location.search.match(/(?<=(code=))[\w+/]+(=+)?/)[0];
+            incode(false);
+        }
+        catch{
+            ws = new WebSocket("ws://localhost:31371/codeutilities/item") // to be forgotten, gets codeutils item api.
+            ws.onopen = () => {console.log("Can use item api now.")}
+            ws.onmessage = x => {console.log("received item.");document.getElementById("templatedata").value=JSON.parse(JSON.parse(x["data"])["received"])["code"]}
+        }
     }
     rotatecheck()
     window.matchMedia("(orientation: portrait)").onchange = () => {}
@@ -533,12 +540,12 @@ function incode(nw){
     }
     else
     {
-        var x = document.getElementById("templatedata").value.match(/"code":"[a-z,A-Z,0-9,/,=,+]+/g)
+        var x = document.getElementById("templatedata").value.match(/"code":"[\w+/]+(=+)?/)
         if(x != null){
             document.getElementById("templatedata").value = x[0].replace('"code":"','')
         }
     }
-    ws.close()
+    try{ws.close()}catch{}
     window.sessionStorage["template"] = document.getElementById("templatedata").value
     window.location.href = "edit.html";
 }
