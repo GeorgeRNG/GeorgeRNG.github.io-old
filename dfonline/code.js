@@ -1,35 +1,33 @@
 function init(nw){
-    if(nw){
+    if(nw){ // initilization for main editing page.
         if(window.sessionStorage["template"] == undefined){window.location.href = "index.html"; return;} // must have an imported template :>
         code = JSON.parse(decompress(window.sessionStorage["template"]));
         window.oncontextmenu = () => {return false}
-        {//this gets and parses actiondump for needed data.
-            fetch('https://georgerng.github.io/dfonline/db.json') // Gets ?actiondump.
-                .then(response => response.json()) // some code probably from mdn docs.
-                .then(data => { // unready required init
-                    db = data;
-                    document.getElementById("html").style.cursor = "progress"
-                    document.getElementById("legacy").checked = false
-                    document.getElementById("dragit").addEventListener("dragover", event => {if(typeof(drag) == "string"){event.preventDefault();}})
-                    document.getElementById("dragit").addEventListener("drop", event => {event.preventDefault(); code["blocks"].push({"id":"block","block":drag,"action":"","args":{"items":[]}}); rendblocks()})
-                    var obj // blocks to add.
-                    db["codeblocks"].forEach((block,i) => {
-                        obj = document.createElement("img")
-                        obj.src = "images/rends/" + block["item"]["material"] + ".png"
-                        obj.classList = "blockdrag codedrag noselect"
-                        obj.id = block["identifier"]
-                        obj.onclick = e => {tooltip(e,db["codeblocks"][i]["item"],true); return false;}
-                        obj.draggable = true
-                        obj.addEventListener("dragstart", event => {drag = event.target.id;})
-                        document.getElementById("footer").appendChild(obj)
-                    })
+        fetch('https://georgerng.github.io/dfonline/db.json') // Gets ?actiondump.
+            .then(response => response.json()) // some code probably from mdn docs.
+            .then(data => { // unready required init
+                db = data;
+                document.getElementById("html").style.cursor = "progress"
+                document.getElementById("legacy").checked = false
+                document.getElementById("dragit").addEventListener("dragover", event => {if(typeof(drag) == "string"){event.preventDefault();}})
+                document.getElementById("dragit").addEventListener("drop", event => {event.preventDefault(); code["blocks"].push({"id":"block","block":drag,"action":"","args":{"items":[]}}); rendblocks()})
+                var obj // blocks to add.
+                db["codeblocks"].forEach((block,i) => {
+                    obj = document.createElement("img")
+                    obj.src = "images/rends/" + block["item"]["material"] + ".png"
+                    obj.classList = "blockdrag codedrag noselect"
+                    obj.id = block["identifier"]
+                    obj.onclick = e => {tooltip(e,db["codeblocks"][i]["item"],true); return false;}
+                    obj.draggable = true
+                    obj.addEventListener("dragstart", event => {drag = event.target.id;})
+                    document.getElementById("footer").appendChild(obj)
                 })
-                .then(() => {// ready:
-                    hv()
-                    rendblocks()
-                    document.getElementById("html").style.cursor = "auto"
-                });
-        }
+            })
+            .then(() => {// ready:
+                hv()
+                rendblocks()
+                document.getElementById("html").style.cursor = "auto"
+            });
     }
     else{// this is for the home page, index.html
         try
@@ -248,6 +246,7 @@ function tooltip(event,itemdata,poslocked = false){
 
 function rendblocks(){
     document.getElementById("stuff").innerHTML = null;
+    var stuff = [];
     var src;
     var obj;
     var sign;
@@ -310,10 +309,23 @@ function rendblocks(){
         obj.addEventListener("dragstart", event => {drag = Number(event.target.id.replace("block",""))})
         obj.addEventListener("dragenter", event => {event.preventDefault();reeds(event).classList.add("codehover");})
         obj.addEventListener("dragexit", event => {reeds(event).classList.remove("codehover")})
-        obj.addEventListener("drop",event => {event.preventDefault(); reeds(event).classList.remove("codehover"); if(typeof(drag) == "number"){var x = code["blocks"][Number(reeds(event).id.replace("block",""))];code["blocks"][Number(reeds(event).id.replace("block",""))] = code["blocks"][drag];code["blocks"][drag] = x;rendblocks()}else{var x = reeds(event);code["blocks"].splice(Number(x.id.replace("block","")) + Number(event.clientX - x.getBoundingClientRect().x >= x.getBoundingClientRect().width/2 ? 1 : 0),0,{"id":"block","block":drag,"action":""});rendblocks();};})
-        obj.addEventListener("dragover", event => {event.preventDefault();})
-        document.getElementById("stuff").appendChild(obj)
+        obj.addEventListener("drop", event => {
+            event.preventDefault();
+            reeds(event).classList.remove("codehover");
+            if(typeof(drag) == "number"){
+                var y = code["blocks"][drag]
+                code["blocks"][drag] = undefined
+                var x = reeds(event);
+                code["blocks"].splice(Number(event.clientX - x.getBoundingClientRect().x >= x.getBoundingClientRect().width/2 ? 1 : 0) + Number(x.id.replace("block","")),0,y)
+                code["blocks"] = code["blocks"].filter(x=>x!=undefined)
+                rendblocks()
+            }
+            else{var x = reeds(event);code["blocks"].splice(Number(x.id.replace("block","")) + Number(event.clientX - x.getBoundingClientRect().x >= x.getBoundingClientRect().width/2 ? 1 : 0),0,{"id":"block","block":drag,"action":""});rendblocks();}
+        })
+        obj.addEventListener("dragover", event => {event.preventDefault();});
+        stuff.push(obj);
     })
+    stuff.forEach(x => document.getElementById("stuff").appendChild(x))
 }
 
 function reeds(event){
