@@ -574,4 +574,12 @@ function codeout(){
         document.getElementById("overlay").click()
     }
     document.getElementById("menu").appendChild(obj)
+    document.getElementById("menu").appendChild(document.createElement("br"))
+    obj = document.createElement("button");
+    obj.innerHTML = "Copy Edit Link";
+    obj.onclick = () => {
+        navigator.clipboard.writeText(`https://GeorgeRNG.github.io/dfonline/index.html?code=` + compress(JSON.stringify(code)))
+        document.getElementById("overlay").click()
+    }
+    document.getElementById("menu").appendChild(obj)
 }
