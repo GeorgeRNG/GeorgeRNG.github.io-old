@@ -69,55 +69,173 @@ function tooltip(event,itemdata,poslocked = false){
     var cursor = document.getElementById("tooltip")
     { // innerHTML
         cursor.innerHTML = ""
-        var obj = document.createElement("span")
-        obj.innerHTML = itemdata["name"]
-        obj.classList = "white"
-        cursor.appendChild(obj)
-        if(itemdata["description"].length != 0){
-            itemdata["description"].forEach(x => {
+        var obj
+        if(String(itemdata).match(/\d+/) != null){
+            itemdata = String(itemdata).match(/\d+/g)
+            itemdata = code["blocks"][itemdata[0]]["args"]["items"][itemdata[1]]["item"]
+            console.log(itemdata)
+            if(itemdata["id"] == "var"){
                 obj = document.createElement("span")
-                obj.innerHTML = x
-                obj.classList = "lightgray"
-                cursor.appendChild(obj)
-            })
-        }
-        if(itemdata["example"].length != 0){
-            obj = document.createElement("span")
-            obj.innerHTML = "<br>Example:"
-            obj.classList = "white"
-            cursor.appendChild(obj)
-            itemdata["example"].forEach(x => {
+                obj.innerHTML = itemdata["data"]["name"]
+                obj.classList = "white"
+                cursor.appendChild(obj);
                 obj = document.createElement("span")
-                obj.innerHTML = x
-                obj.classList = "lightgray"
+                obj.innerHTML = ({"saved":"SAVE","unsaved":"GAME","local":"LOCAL"}[itemdata["data"]["scope"]])
+                obj.classList = ({"saved":"yellow","unsaved":"lightgrey","local":"green"}[itemdata["data"]["scope"]])
                 cursor.appendChild(obj)
-            })
-        }
-        if(itemdata["additionalInfo"].length != 0){
-            obj = document.createElement("span")
-            obj.innerHTML = "<br>Additional Info:"
-            obj.classList = "blue"
-            cursor.appendChild(obj)
-            itemdata["additionalInfo"].forEach(x => {
+            }
+            else if(itemdata["id"] == "num"){
                 obj = document.createElement("span")
-                obj.innerHTML = x
-                obj.classList = "lightgray"
+                obj.innerHTML = itemdata["data"]["name"];
+                obj.classList = "red";
                 cursor.appendChild(obj)
-            })
-        }
-        cursor.style.display = "grid"
-        if(poslocked){
-            cursor.style.position = "fixed"
-            cursor.style.left = String(event.clientX + 10) + "px"
-            cursor.style.top = String(event.clientY - cursor.getBoundingClientRect().height/2) + "px"
+            }
+            else if(itemdata["id"] == "g_val"){
+                obj = document.createElement("span")
+                obj.innerHTML = itemdata["data"]["type"]
+                cursor.appendChild(obj)
+                obj = document.createElement("span")
+                obj.innerHTML = itemdata["data"]["target"]
+                obj.classList = {"Selection":"green","Default":"green","Killer":"red","Damager":"red","Victim":"blue","Shooter":"yellow","Projectile":"aqua","Last-Spawned Entity":"yellow"}[itemdata["data"]["target"]]
+                cursor.appendChild(obj)
+            }
+            else if(itemdata["id"] == "txt"){
+                obj = document.createElement("span")
+                obj.innerHTML = itemdata["data"]["name"]
+                obj.classList = "white"
+                cursor.appendChild(obj)
+                if(itemdata["data"]["name"] == ""){
+                    obj = document.createElement("span")
+                    obj.innerHTML = "Empty Text"
+                    obj.classList = "emptytext"
+                    cursor.appendChild(obj)
+                }
+            }
+            else if(itemdata["id"] == "vec"){
+                obj = document.createElement("span")
+                obj.innerHTML = "Vector"
+                obj.style.color = "#2affaa"
+                cursor.appendChild(obj)
+                obj = document.createElement("span")
+                obj.innerHTML = '<span class="lightgray">X: <span class="white">' + itemdata["data"]["x"] + '</span>'
+                cursor.appendChild(obj)
+                obj = document.createElement("span")
+                obj.innerHTML = '<span class="lightgray">Y: <span class="white">' + itemdata["data"]["y"] + '</span>'
+                cursor.appendChild(obj)
+                obj = document.createElement("span")
+                obj.innerHTML = '<span class="lightgray">Z: <span class="white">' + itemdata["data"]["z"] + '</span>'
+                cursor.appendChild(obj)
+            }
+            else if(itemdata["id"] == "loc"){
+                obj = document.createElement("span")
+                obj.innerHTML = "Location"
+                obj.classList = "green"
+                cursor.appendChild(obj)
+                obj = document.createElement("span")
+                obj.innerHTML = '<span class="lightgray">X: <span class="white">' + String(itemdata["data"]["loc"]["x"]) + '</span>'
+                cursor.appendChild(obj)
+                obj = document.createElement("span")
+                obj.innerHTML = '<span class="lightgray">Y: <span class="white">' + String(itemdata["data"]["loc"]["y"]) + '</span>'
+                cursor.appendChild(obj)
+                obj = document.createElement("span")
+                obj.innerHTML = '<span class="lightgray">Z: <span class="white">' + String(itemdata["data"]["loc"]["z"]) + '</span>'
+                cursor.appendChild(obj)
+                if(!itemdata["data"]["isBlock"]){
+                    obj = document.createElement("span")
+                    obj.innerHTML = '<span class="lightgray">p: <span class="white">' + String(itemdata["data"]["loc"]["pitch"]) + '</span>'
+                    cursor.appendChild(obj)
+                    obj = document.createElement("span")
+                    obj.innerHTML = '<span class="lightgray">y: <span class="white">' + String(itemdata["data"]["loc"]["yaw"]) + '</span>'
+                    cursor.appendChild(obj)
+                }
+            }
+            else if(itemdata["id"] == "snd"){
+                obj = document.createElement("span")
+                obj.innerHTML = "Sound"
+                obj.classList = "blue"
+                cursor.appendChild(obj)
+                obj = document.createElement("span")
+                obj.innerHTML = itemdata["data"]["sound"]
+                cursor.appendChild(obj)
+                obj = document.createElement("span")
+                obj.innerHTML = '<span class="lightgray">Pitch: <span class="white">' + itemdata["data"]["pitch"] + '</span>'
+                cursor.appendChild(obj)
+                obj = document.createElement("span")
+                obj.innerHTML = '<span class="lightgray">Volume: <span class="white">' + itemdata["data"]["vol"] + '</span>'
+                cursor.appendChild(obj)
+            }
+            else if(itemdata["id"] == "pot"){
+                obj = document.createElement("span")
+                obj.innerHTML = "Potion Effect"
+                obj.style.color = "#ff557f"
+                cursor.appendChild(obj)
+                obj = document.createElement("span")
+                obj.innerHTML = itemdata["data"]["pot"] + "<br><br>"
+                cursor.appendChild(obj)
+                obj = document.createElement("span")
+                obj.innerHTML = '<span class="lightgray">Amplifier: <span class="white">' + itemdata["data"]["amp"] + '</span>'
+                cursor.appendChild(obj)
+                obj = document.createElement("span")
+                obj.innerHTML = '<span class="lightgray">Duration: <span class="white">' + itemdata["data"]["dur"] + '</span>'
+                cursor.appendChild(obj)
+            }
+            else{
+                obj = document.createElement("span")
+                obj.classList = "red"
+                obj.innerHTML = "Oh No!<br>Looks like this item tooltip can't be shown."
+                cursor.appendChild(obj)
+            }
         }
         else{
-            cursor.style.position = "absolute"
-            cursor.style.left = String(event.layerX + 10) + "px"
-            cursor.style.top = String(event.layerY - cursor.getBoundingClientRect().height/2) + "px"
+            obj = document.createElement("span")
+            obj.innerHTML = itemdata["name"]
+            obj.classList = "white"
+            cursor.appendChild(obj)
+            if(itemdata["description"].length != 0){
+                itemdata["description"].forEach(x => {
+                    obj = document.createElement("span")
+                    obj.innerHTML = x
+                    obj.classList = "lightgray"
+                    cursor.appendChild(obj)
+                })
+            }
+            if(itemdata["example"].length != 0){
+                obj = document.createElement("span")
+                obj.innerHTML = "<br>Example:"
+                obj.classList = "white"
+                cursor.appendChild(obj)
+                itemdata["example"].forEach(x => {
+                    obj = document.createElement("span")
+                    obj.innerHTML = x
+                    obj.classList = "lightgray"
+                    cursor.appendChild(obj)
+                })
+            }
+            if(itemdata["additionalInfo"].length != 0){
+                obj = document.createElement("span")
+                obj.innerHTML = "<br>Additional Info:"
+                obj.classList = "blue"
+                cursor.appendChild(obj)
+                itemdata["additionalInfo"].forEach(x => {
+                    obj = document.createElement("span")
+                    obj.innerHTML = x
+                    obj.classList = "lightgray"
+                    cursor.appendChild(obj)
+                })
+            }
         }
-        cursor.innerHTML = cursor.innerHTML.replaceAll("»","<span class=\"aqua\">»</span>")
-        console.log(itemdata)
+            cursor.style.display = "grid"
+            if(poslocked){
+                cursor.style.position = "fixed"
+                cursor.style.left = String(event.clientX + 10) + "px"
+                cursor.style.top = String(event.clientY - cursor.getBoundingClientRect().height/2) + "px"
+            }
+            else{
+                cursor.style.position = "absolute"
+                cursor.style.left = String(event.layerX + 10) + "px"
+                cursor.style.top = String(event.layerY - cursor.getBoundingClientRect().height/2) + "px"
+            }
+            cursor.innerHTML = cursor.innerHTML.replaceAll("»","<span class=\"aqua\">»</span>")
     }
 }
 
@@ -203,9 +321,10 @@ function ctx(block, id){
         var menu = document.createElement("div")
         document.getElementById("menu").appendChild(obj)
         {
-            var div = document.createElement("div")
-            if(code["blocks"][id]["id"] != "bracket")
-            {
+            {//block menu
+                var div = document.createElement("div")
+                if(code["blocks"][id]["id"] != "bracket")
+                {
                 obj = document.createElement("label")
                 obj.innerHTML = "Action "
                 var x = code["blocks"][id]["action"] == undefined ? "data" : "action"
@@ -261,8 +380,8 @@ function ctx(block, id){
                 div.appendChild(obj);
             }
             div.appendChild(document.createElement("br"));
-            }
-            else{
+                }
+                else{
                 menu.style.display = "block"
                 {// direct
                     obj = document.createElement("label")
@@ -297,18 +416,35 @@ function ctx(block, id){
                     menu.appendChild(obj)
                 }
                 menu.appendChild(document.createElement("br"))
+                }
+                div.appendChild(document.createElement("br"));
+                obj = document.createElement("button");
+                obj.innerHTML = "Delete";
+                obj.id = "delete"+String(id);
+                obj.onclick = event => {
+                    delete code["blocks"][Number(event.target.id.replace("delete",""))];
+                    rendblocks()
+                    document.getElementById("overlay").click()
+                }
+                div.appendChild(obj)
+                menu.appendChild(div)
             }
-            div.appendChild(document.createElement("br"));
-            obj = document.createElement("button");
-            obj.innerHTML = "Delete";
-            obj.id = "delete"+String(id);
-            obj.onclick = event => {
-                delete code["blocks"][Number(event.target.id.replace("delete",""))];
-                rendblocks()
-                document.getElementById("overlay").click()
+            {//inventory menu
+                var div = document.createElement("div")
+                div.id = "inventory"
+                {//block inv
+                    div.appendChild(inv("block",code["blocks"][id]["args"]["items"]))
+                    code["blocks"][id]["args"]["items"].forEach((x,i) => {
+                        div.getElementsByClassName("slot")[x["slot"]].innerHTML = ""
+                        div.getElementsByClassName("slot")[x["slot"]].appendChild(slot(x,String(id)+":"+String(i)))
+                    })
+                }
+                {//home inv
+                    // div.appendChild(inv("home"))
+                }
+                menu.appendChild(div)
             }
-            div.appendChild(obj)
-            menu.appendChild(div)}
+        }
         document.getElementById("menu").appendChild(menu)
     }
     {//overlay stuff.
@@ -318,6 +454,57 @@ function ctx(block, id){
         document.getElementById("overlay").onclick = event => {if(event.target.id == "overlay"){event.target.classList = "fadeout"; document.getElementById("menu").animationPlayState = "unset"}}
         document.getElementById("menu").style.animationPlayState = "running"
     }
+}
+
+function inv(prefix,items){
+    var i = document.createElement("div");
+    var row = document.createElement("h3");
+    row.innerHTML = "Inventory";
+    row.className = "mcfont";
+    i.appendChild(row);
+    row = document.createElement("div");
+    row.classList = "row";
+    row.id = prefix+"row0";
+    i.appendChild(row);
+    row = document.createElement("div");
+    row.classList = "row";
+    row.id = prefix+"row1";
+    i.appendChild(row);
+    row = document.createElement("div");
+    row.classList = "row";
+    row.id = prefix+"row2";
+    i.appendChild(row);
+    items = Object.fromEntries(items.map(x => [x["slot"],x["item"]]))
+    var div
+    [...Array(27).keys()].forEach(y => {
+        div = document.createElement("div")
+        div.id = prefix+"slot"+String(y)
+        div.classList = "slot"
+        i.children[Math.min(Math.floor((y/(26/3))),2) + 1].appendChild(div)
+    })
+    return i
+}
+
+function slot(itemdata,namespace){
+    var i = document.createElement("img")
+    i.id = namespace
+    //scr selector
+    try{
+        i.src = "images/rends/" + {"g_val":"name_tag","pot":"dragon_breath","part":"white_dye","snd":"nautilus_shell","vec":"prismarine_shard","loc":"paper","num":"slime_ball","txt":"book","var":"magma_cream"}[itemdata.item.id].toUpperCase() + ".png";
+    }
+    catch{
+        if(itemdata.item.id == "item"){
+            i.src = "images/rends/" + itemdata.item.data.item.match(/(?<=([a-z.]+:))[a-z_]+/g)[0].toUpperCase() + ".png"
+
+        }
+        else{
+            i.src = "images/unknown.png";
+            i.title = "Seems like we can't show this icon."
+        }
+    }
+    //scr end
+    i.onclick = e => {tooltip(e,e.target.id,true)}
+    return i
 }
 
 function edit(event){

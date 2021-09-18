@@ -143,8 +143,6 @@ header {
     opacity: 0.6;
 }
 
-
-
 #overlay {
     position: fixed;
     display: none; 
@@ -286,7 +284,11 @@ input[type="checkbox"]:hover{
     padding: 2px;
     cursor: crosshair;
 }
-.white{color: white;}
-.lightgray{color: lightgray;}
-.blue {color: blue;}
-.aqua {color: aqua;}
+.white{color: #fff;}
+.lightgray{color: #AAA;}
+.blue {color: #55F;}
+.aqua {color: #5FF;}
+.yellow {color: #FF5;}
+.green {color: #5F5;}
+.red {color: #F55;}
+.emptytext{color: #808080;}
