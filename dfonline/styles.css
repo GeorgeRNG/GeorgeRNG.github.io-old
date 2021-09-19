@@ -80,7 +80,8 @@ header {
 
 
 .sign {
-    background-image: url(images/normal/sign.png); 
+    background-image: url(images/normal/sign.png);
+    background-size: contain;
     width: 170px;
     margin-top: 43px;
     text-align: center;
