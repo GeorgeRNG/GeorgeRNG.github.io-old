@@ -542,7 +542,7 @@ function edit(event){
 }
 
 {//decode en/de:code stuff
-function decompress(x){return String.fromCharCode.apply(null,new Uint16Array(pako.inflate(new Uint8Array(atob(x).split('').map((e)=>{return e.charCodeAt(0);})))));}
+function decompress(x){return String.fromCharCode.apply(null,new Uint16Array(pako.ungzip(new Uint8Array(atob(x).split('').map((e)=>{return e.charCodeAt(0);})))));}
 function compress(x){return (btoa(String.fromCharCode.apply(null, new Uint16Array(pako.gzip(x)))));}
 }
 
