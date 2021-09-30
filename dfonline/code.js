@@ -17,7 +17,8 @@ function init(nw){
                     obj.src = "images/rends/" + block["item"]["material"] + ".png"
                     obj.classList = "blockdrag codedrag noselect"
                     obj.id = block["identifier"]
-                    obj.onclick = e => {tooltip(e,db["codeblocks"][i]["item"],true); return false;}
+                    obj.onmousemove = e => {tooltip(e,db["codeblocks"][i]["item"],true); return false;}
+                    obj.onmouseleave = () => {document.getElementById("tooltip").click()}
                     obj.draggable = true
                     obj.addEventListener("dragstart", event => {drag = event.target.id;})
                     document.getElementById("footer").appendChild(obj)
@@ -78,7 +79,6 @@ function tooltip(event,itemdata,poslocked = false){
         if(String(itemdata).match(/\d+/) != null){
             itemdata = String(itemdata).match(/\d+/g)
             itemdata = code["blocks"][itemdata[0]]["args"]["items"][itemdata[1]]["item"]
-            console.log(itemdata)
             if(itemdata["id"] == "var"){
                 obj = document.createElement("span")
                 obj.innerHTML = itemdata["data"]["name"]
@@ -229,19 +229,20 @@ function tooltip(event,itemdata,poslocked = false){
                 })
             }
         }
-            cursor.style.display = "grid"
-            if(poslocked){
-                cursor.style.position = "fixed"
-                cursor.style.left = String(event.clientX + 10) + "px"
-                cursor.style.top = String(event.clientY - cursor.getBoundingClientRect().height/2) + "px"
-            }
-            else{
-                cursor.style.position = "absolute"
-                cursor.style.left = String(event.layerX + 10) + "px"
-                cursor.style.top = String(event.layerY - cursor.getBoundingClientRect().height/2) + "px"
-            }
-            cursor.innerHTML = cursor.innerHTML.replaceAll("»","<span class=\"aqua\">»</span>")
+        cursor.innerHTML = cursor.innerHTML.replaceAll("»","<span class=\"aqua\">»</span>")
     }
+    cursor.style.display = "grid"
+        if(poslocked){
+            cursor.style.position = "fixed"
+            cursor.style.left = String(event.clientX + 10) + "px"
+            cursor.style.top = String(event.clientY - cursor.getBoundingClientRect().height/2) + "px"
+        }
+        else{
+            cursor.style.position = "absolute"
+            cursor.style.left = String(event.layerX + 10) + "px"
+            cursor.style.top = String(event.layerY - cursor.getBoundingClientRect().height/2) + "px"
+        }
+
 }
 
 function rendblocks(){
@@ -301,11 +302,12 @@ function rendblocks(){
                 //click on block?
             }
         }
-        obj.onclick = event => {
+        obj.onmousemove = event => {
             if(code["blocks"][Number(reeds(event).id.replace("block",""))]["action"] != ""){
                 tooltip(event,hardvalues["action"][code["blocks"][Number(reeds(event).id.replace("block",""))]["action"]]["icon"])
             }
         }
+        obj.onmouseleave = () => {document.getElementById("tooltip").click()}
         obj.addEventListener("dragstart", event => {drag = Number(event.target.id.replace("block",""))})
         obj.addEventListener("dragenter", event => {event.preventDefault();reeds(event).classList.add("codehover");})
         obj.addEventListener("dragexit", event => {reeds(event).classList.remove("codehover")})
@@ -468,10 +470,14 @@ function ctx(block, id){
     }
     {//overlay stuff.
         document.getElementById("overlay").style.display = "block";
+        document.getElementById("menu").classList.remove('shrink')
+        document.getElementById('menu').classList.add('slideup')
         document.getElementById("overlay").onanimationend = event => {if(event.target.id == "overlay"){event.target.style.display = "none"; event.target.classList = ""}}
         document.getElementById("overlay").oncontextmenu = event => {event.target.click()}
-        document.getElementById("overlay").onclick = event => {if(event.target.id == "overlay"){event.target.classList = "fadeout"; document.getElementById("menu").animationPlayState = "unset"}}
-        document.getElementById("menu").style.animationPlayState = "running"
+        document.getElementById("overlay").onclick = event => {if(event.target.id == "overlay"){
+            event.target.classList = "fadeout";
+            document.getElementById("menu").classList.add('shrink')
+        }}
     }
 }
 
@@ -522,7 +528,10 @@ function slot(itemdata,namespace){
         }
     }
     //scr end
+    i.oncontextmenu = e => {e.stopPropagation(); return false;}
     i.onclick = e => {tooltip(e,e.target.id,true)}
+    i.onmousemove = e => {tooltip(e,e.target.id,true)}
+    i.onmouseleave = () => {document.getElementById("tooltip").click()}
     return i
 }
 
