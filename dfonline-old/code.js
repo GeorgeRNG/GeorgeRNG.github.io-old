@@ -3,7 +3,7 @@ function init(nw){
         if(window.sessionStorage["template"] == undefined){window.location.href = "index.html"; return;} // must have an imported template :>
         code = JSON.parse(decompress(window.sessionStorage["template"]));
         window.oncontextmenu = () => {return false}
-        fetch('https://georgerng.github.io/dfonline/db.json') // Gets ?actiondump.
+        fetch('https://georgerng.github.io/dfonline-old/db.json') // Gets ?actiondump.
             .then(response => response.json()) // some code probably from mdn docs.
             .then(data => { // unready required init
                 db = data;
